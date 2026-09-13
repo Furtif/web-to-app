@@ -53,16 +53,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
-import com.webtoapp.R
 import com.webtoapp.core.i18n.Strings
 import com.webtoapp.core.stats.AppHealthRecord
 import com.webtoapp.core.stats.AppUsageStats
@@ -71,6 +65,7 @@ import com.webtoapp.core.stats.OverallStats
 import com.webtoapp.core.stats.StatsFormat
 import com.webtoapp.data.model.AppType
 import com.webtoapp.data.model.WebApp
+import com.webtoapp.ui.components.WtaAppIcon
 import com.webtoapp.ui.design.WtaAlertDialog
 import com.webtoapp.ui.design.WtaBadge
 import com.webtoapp.ui.design.WtaCard
@@ -446,7 +441,7 @@ private fun UsageRankCard(
                     modifier = Modifier.width(22.dp)
                 )
                 Spacer(Modifier.width(10.dp))
-                AppIconSmall(app)
+                WtaAppIcon(app)
                 Spacer(Modifier.width(12.dp))
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
@@ -668,7 +663,7 @@ private fun HealthStatusCard(
                 .padding(12.dp)
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                AppIconSmall(app)
+                WtaAppIcon(app)
                 Spacer(Modifier.width(12.dp))
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
@@ -750,50 +745,4 @@ private fun SectionLabel(text: String) {
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         modifier = Modifier.padding(top = 4.dp, bottom = 2.dp)
     )
-}
-
-@Composable
-private fun AppIconSmall(app: WebApp) {
-    Surface(
-        modifier = Modifier.size(36.dp),
-        shape = RoundedCornerShape(8.dp),
-        color = MaterialTheme.colorScheme.primaryContainer
-    ) {
-        if (app.iconPath != null) {
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(app.iconPath)
-                    .crossfade(true)
-                    .build(),
-                contentDescription = app.name,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clip(RoundedCornerShape(8.dp)),
-                contentScale = ContentScale.Crop
-            )
-        } else {
-            val defaultIconRes = when (app.appType) {
-                AppType.WEB -> R.drawable.ic_type_web
-                AppType.IMAGE -> R.drawable.ic_type_media
-                AppType.VIDEO -> R.drawable.ic_type_media
-                AppType.HTML -> R.drawable.ic_type_html
-                AppType.GALLERY -> R.drawable.ic_type_gallery
-                AppType.FRONTEND -> R.drawable.ic_type_frontend
-                AppType.WORDPRESS -> R.drawable.ic_type_wordpress
-                AppType.NODEJS_APP -> R.drawable.ic_type_nodejs
-                AppType.PHP_APP -> R.drawable.ic_type_php
-                AppType.PYTHON_APP -> R.drawable.ic_type_python
-                AppType.GO_APP -> R.drawable.ic_type_go
-                AppType.MULTI_WEB -> R.drawable.ic_type_multi_web
-            }
-            Icon(
-                painterResource(defaultIconRes),
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(8.dp),
-                tint = MaterialTheme.colorScheme.onPrimaryContainer
-            )
-        }
-    }
 }

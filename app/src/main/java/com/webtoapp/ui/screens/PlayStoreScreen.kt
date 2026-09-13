@@ -23,6 +23,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Block
 import androidx.compose.material.icons.outlined.CheckCircle
+import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material.icons.outlined.ExpandLess
 import androidx.compose.material.icons.outlined.ExpandMore
@@ -32,11 +33,12 @@ import androidx.compose.material.icons.outlined.Policy
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.outlined.Warning
-import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -64,12 +66,16 @@ import com.webtoapp.core.playstore.aab.AabExporter
 import com.webtoapp.core.playstore.aab.AabExportCoordinator
 import com.webtoapp.core.playstore.aab.FailureStage
 import com.webtoapp.data.model.WebApp
+import com.webtoapp.ui.components.WtaAppIcon
+import com.webtoapp.ui.design.WtaAlertDialog
+import com.webtoapp.ui.design.WtaBadge
 import com.webtoapp.ui.design.WtaButton
 import com.webtoapp.ui.design.WtaButtonVariant
 import com.webtoapp.ui.design.WtaCard
 import com.webtoapp.ui.design.WtaCardTone
 import com.webtoapp.ui.design.WtaColors
 import com.webtoapp.ui.design.WtaScreen
+import com.webtoapp.ui.design.WtaTextField
 import com.webtoapp.ui.viewmodel.MainViewModel
 import java.io.File
 import java.text.DateFormat
@@ -214,20 +220,18 @@ fun PlayStoreScreen(
     }
 
     if (showWarningConfirm) {
-        AlertDialog(
+        WtaAlertDialog(
             onDismissRequest = {
                 showWarningConfirm = false
                 pendingExportApp = null
             },
-            title = { Text(Strings.playStoreExportWarningTitle) },
-            text = {
-                Text(
-                    String.format(
-                        Strings.playStoreExportWarningBody,
-                        report?.warningCount ?: pendingExportApp?.let { PlayPolicyChecker.check(it).warningCount } ?: 0
-                    )
-                )
-            },
+            icon = Icons.Outlined.Warning,
+            iconTint = WtaColors.semantic.warning,
+            title = Strings.playStoreExportWarningTitle,
+            text = String.format(
+                Strings.playStoreExportWarningBody,
+                report?.warningCount ?: pendingExportApp?.let { PlayPolicyChecker.check(it).warningCount } ?: 0
+            ),
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -376,15 +380,20 @@ private fun AppSelectionCard(
                 )
             } else {
                 if (totalCount > 6) {
-                    OutlinedTextField(
+                    WtaTextField(
                         value = query,
                         onValueChange = onQueryChange,
                         modifier = Modifier.fillMaxWidth(),
+                        placeholder = Strings.search,
+                        leadingIcon = Icons.Outlined.Search,
                         singleLine = true,
-                        leadingIcon = {
-                            Icon(Icons.Outlined.Search, contentDescription = null)
-                        },
-                        placeholder = { Text(Strings.search) }
+                        trailingIcon = if (query.isNotEmpty()) {
+                            {
+                                IconButton(onClick = { onQueryChange("") }) {
+                                    Icon(Icons.Outlined.Clear, contentDescription = Strings.clear)
+                                }
+                            }
+                        } else null
                     )
                 }
 
@@ -442,6 +451,8 @@ private fun AppRow(
             modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            WtaAppIcon(app, size = 38.dp)
+            Spacer(modifier = Modifier.width(10.dp))
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = app.name,
@@ -486,13 +497,18 @@ private fun ExportActionCard(
 ) {
     WtaCard(tone = WtaCardTone.Surface) {
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text(
-                text = app.name,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.SemiBold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                WtaAppIcon(app, size = 40.dp)
+                Spacer(modifier = Modifier.width(10.dp))
+                Text(
+                    text = app.name,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f)
+                )
+            }
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 if (blockers > 0) {
                     StatusChip(
@@ -552,18 +568,11 @@ private fun ExportActionCard(
 
 @Composable
 private fun StatusChip(label: String, color: Color) {
-    Surface(
-        shape = RoundedCornerShape(999.dp),
-        color = color.copy(alpha = 0.12f)
-    ) {
-        Text(
-            text = label,
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
-            style = MaterialTheme.typography.labelSmall,
-            fontWeight = FontWeight.SemiBold,
-            color = color
-        )
-    }
+    WtaBadge(
+        text = label,
+        containerColor = color.copy(alpha = 0.12f),
+        contentColor = color
+    )
 }
 
 @Composable
@@ -581,35 +590,36 @@ private fun RecentAabCard(
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold
             )
-            files.forEach { file ->
-                Surface(
-                    shape = RoundedCornerShape(12.dp),
-                    color = MaterialTheme.colorScheme.surfaceContainerHigh,
-                    modifier = Modifier.fillMaxWidth()
+            files.forEachIndexed { index, file ->
+                if (index > 0) {
+                    HorizontalDivider(
+                        color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f)
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 2.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(
-                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Column(modifier = Modifier.weight(1f)) {
-                            Text(
-                                text = file.name,
-                                style = MaterialTheme.typography.bodyMedium,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis
-                            )
-                            Text(
-                                text = formatter.format(Date(file.lastModified())) +
-                                    " · " + formatFileSize(file.length()),
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-                        TextButton(onClick = { onShare(file) }) {
-                            Icon(Icons.Outlined.Share, null, Modifier.size(16.dp))
-                            Spacer(Modifier.width(6.dp))
-                            Text(Strings.playStoreExportShare)
-                        }
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = file.name,
+                            style = MaterialTheme.typography.bodyMedium,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                        Text(
+                            text = formatter.format(Date(file.lastModified())) +
+                                " · " + formatFileSize(file.length()),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                    TextButton(onClick = { onShare(file) }) {
+                        Icon(Icons.Outlined.Share, null, Modifier.size(16.dp))
+                        Spacer(Modifier.width(6.dp))
+                        Text(Strings.playStoreExportShare)
                     }
                 }
             }
@@ -765,29 +775,12 @@ private fun ViolationCard(violation: PlayPolicyChecker.Violation) {
     WtaCard(tone = WtaCardTone.Elevated) {
         Column(modifier = Modifier.padding(14.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Surface(
-                    shape = RoundedCornerShape(6.dp),
-                    color = severityColor.copy(alpha = 0.12f)
-                ) {
-                    Row(
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            severityIcon,
-                            contentDescription = null,
-                            tint = severityColor,
-                            modifier = Modifier.size(14.dp)
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            text = severityLabel,
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.SemiBold,
-                            color = severityColor
-                        )
-                    }
-                }
+                WtaBadge(
+                    text = severityLabel,
+                    icon = severityIcon,
+                    containerColor = severityColor.copy(alpha = 0.12f),
+                    contentColor = severityColor
+                )
             }
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -866,7 +859,7 @@ private fun ExportStateCard(
             WtaCard(tone = WtaCardTone.Highlighted) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        androidx.compose.material3.CircularProgressIndicator(
+                        CircularProgressIndicator(
                             modifier = Modifier.size(20.dp),
                             strokeWidth = 2.dp
                         )
@@ -885,13 +878,19 @@ private fun ExportStateCard(
                         fontFamily = FontFamily.Monospace
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    androidx.compose.material3.LinearProgressIndicator(
+                    LinearProgressIndicator(
                         progress = { state.percent / 100f },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        trackColor = MaterialTheme.colorScheme.surfaceContainerHighest
                     )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    androidx.compose.material3.TextButton(onClick = onCancel) {
-                        Text(Strings.btnCancel)
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        TextButton(onClick = onCancel) {
+                            Text(Strings.btnCancel)
+                        }
                     }
                 }
             }
