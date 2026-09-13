@@ -3,11 +3,13 @@ package com.webtoapp.ui.screens
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import androidx.core.graphics.drawable.toBitmap
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -46,7 +48,7 @@ import androidx.compose.material.icons.outlined.Stop
 import androidx.compose.material.icons.outlined.Sync
 import androidx.compose.material.icons.outlined.SyncDisabled
 import androidx.compose.material.icons.outlined.Warning
-import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -70,6 +72,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -83,6 +86,7 @@ import com.webtoapp.core.port.ProcessPortScanner.ServiceType
 import com.webtoapp.core.port.WtaAppPortDiscovery
 import com.webtoapp.core.port.WtaAppPortDiscovery.RemoteAllocation
 import com.webtoapp.core.port.WtaAppPortDiscovery.WtaAppPortReport
+import com.webtoapp.ui.design.WtaAlertDialog
 import com.webtoapp.ui.design.WtaButton
 import com.webtoapp.ui.design.WtaButtonSize
 import com.webtoapp.ui.design.WtaButtonVariant
@@ -340,10 +344,10 @@ fun PortManagerScreen(onBack: () -> Unit) {
     }
 
     scanErrorThrowable?.let { err ->
-        AlertDialog(
+        WtaAlertDialog(
             onDismissRequest = { scanErrorThrowable = null },
-            title = { Text(Strings.portManagerScanFailed) },
-            text = { Text(err.message ?: Strings.portManagerScanFailed) },
+            title = Strings.portManagerScanFailed,
+            text = err.message ?: Strings.portManagerScanFailed,
             confirmButton = {
                 TextButton(onClick = { scanErrorThrowable = null }) {
                     Text(Strings.close)
@@ -353,18 +357,19 @@ fun PortManagerScreen(onBack: () -> Unit) {
     }
 
     if (showKillAllDialog) {
-        AlertDialog(
+        WtaAlertDialog(
             onDismissRequest = { showKillAllDialog = false },
-            icon = { Icon(Icons.Outlined.Warning, null, tint = MaterialTheme.colorScheme.error) },
-            title = { Text(Strings.portManagerKillAll) },
-            text = { Text(Strings.portManagerKillAllConfirm) },
+            icon = Icons.Outlined.Warning,
+            iconTint = MaterialTheme.colorScheme.error,
+            title = Strings.portManagerKillAll,
+            text = Strings.portManagerKillAllConfirm,
             confirmButton = {
                 TextButton(
                     onClick = {
                         showKillAllDialog = false
                         killAllServices()
                     },
-                    colors = androidx.compose.material3.ButtonDefaults.textButtonColors(
+                    colors = ButtonDefaults.textButtonColors(
                         contentColor = MaterialTheme.colorScheme.error
                     )
                 ) {
@@ -380,11 +385,12 @@ fun PortManagerScreen(onBack: () -> Unit) {
     }
 
     showKillDialog?.let { service ->
-        AlertDialog(
+        WtaAlertDialog(
             onDismissRequest = { showKillDialog = null },
-            icon = { Icon(Icons.Outlined.Stop, null, tint = MaterialTheme.colorScheme.error) },
-            title = { Text(Strings.portManagerKillService) },
-            text = {
+            icon = Icons.Outlined.Stop,
+            iconTint = MaterialTheme.colorScheme.error,
+            title = Strings.portManagerKillService,
+            content = {
                 Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                     Text(Strings.portManagerKillConfirmSingle)
                     Spacer(modifier = Modifier.height(8.dp))
@@ -416,7 +422,7 @@ fun PortManagerScreen(onBack: () -> Unit) {
                         showKillDialog = null
                         killService(s)
                     },
-                    colors = androidx.compose.material3.ButtonDefaults.textButtonColors(
+                    colors = ButtonDefaults.textButtonColors(
                         contentColor = MaterialTheme.colorScheme.error
                     )
                 ) {
@@ -464,7 +470,7 @@ private fun ThisAppTabContent(
             )
         }
 
-        if (typesPresent.isNotEmpty()) {
+        if (typesPresent.size > 1) {
             item {
                 Row(
                     modifier = Modifier
@@ -624,7 +630,7 @@ private fun PortStatsCard(
                                     stat.usagePercent > 0.5f -> semantic.warning
                                     else -> MaterialTheme.colorScheme.primary
                                 },
-                                trackColor = MaterialTheme.colorScheme.surfaceVariant
+                                trackColor = MaterialTheme.colorScheme.surfaceContainerHighest
                             )
                             Text(
                                 "${stat.allocated}/${stat.total}",
@@ -730,13 +736,19 @@ private fun ServiceCard(
                         overflow = TextOverflow.Ellipsis
                     )
                 }
-                Box(
-                    modifier = Modifier
-                        .size(10.dp)
-                        .clip(CircleShape)
-                        .background(statusColor)
-                )
-                Spacer(Modifier.width(6.dp))
+                Surface(
+                    shape = RoundedCornerShape(999.dp),
+                    color = statusColor.copy(alpha = 0.12f)
+                ) {
+                    Text(
+                        text = if (service.isResponding) Strings.portManagerResponding else Strings.portManagerNotResponding,
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
+                        style = MaterialTheme.typography.labelSmall,
+                        color = statusColor,
+                        maxLines = 1
+                    )
+                }
+                Spacer(Modifier.width(4.dp))
                 Icon(
                     if (expanded) Icons.Outlined.ExpandLess else Icons.Outlined.ExpandMore,
                     contentDescription = null,
@@ -795,7 +807,7 @@ private fun ServiceCard(
                     WtaButton(
                         onClick = onKill,
                         text = Strings.portManagerKill,
-                        variant = WtaButtonVariant.Primary,
+                        variant = WtaButtonVariant.Destructive,
                         size = WtaButtonSize.Small,
                         leadingIcon = Icons.Outlined.Stop,
                         modifier = Modifier.fillMaxWidth()
@@ -891,6 +903,15 @@ private fun WtaAppPortReportCard(
         else -> MaterialTheme.colorScheme.primary
     }
 
+    val context = LocalContext.current
+    val appIcon = remember(report.app.packageName) {
+        runCatching {
+            context.packageManager.getApplicationIcon(report.app.packageName)
+                .toBitmap(96, 96)
+                .asImageBitmap()
+        }.getOrNull()
+    }
+
     WtaCard(tone = WtaCardTone.Surface) {
         Column(modifier = Modifier.padding(14.dp)) {
             Row(
@@ -899,17 +920,27 @@ private fun WtaAppPortReportCard(
                     .clickable { expanded = !expanded },
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Surface(
-                    shape = RoundedCornerShape(10.dp),
-                    color = MaterialTheme.colorScheme.primaryContainer,
-                    modifier = Modifier.size(40.dp)
-                ) {
-                    Box(contentAlignment = Alignment.Center) {
-                        Icon(
-                            Icons.Outlined.Apps,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onPrimaryContainer
-                        )
+                if (appIcon != null) {
+                    Image(
+                        bitmap = appIcon,
+                        contentDescription = report.app.displayName,
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clip(RoundedCornerShape(10.dp))
+                    )
+                } else {
+                    Surface(
+                        shape = RoundedCornerShape(10.dp),
+                        color = MaterialTheme.colorScheme.primaryContainer,
+                        modifier = Modifier.size(40.dp)
+                    ) {
+                        Box(contentAlignment = Alignment.Center) {
+                            Icon(
+                                Icons.Outlined.Apps,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onPrimaryContainer
+                            )
+                        }
                     }
                 }
                 Spacer(Modifier.width(12.dp))
@@ -1021,7 +1052,7 @@ private fun RemoteAllocationRow(
         }
         TextButton(
             onClick = onRelease,
-            colors = androidx.compose.material3.ButtonDefaults.textButtonColors(
+            colors = ButtonDefaults.textButtonColors(
                 contentColor = MaterialTheme.colorScheme.error
             )
         ) {
