@@ -65,6 +65,7 @@ import com.webtoapp.core.stats.OverallStats
 import com.webtoapp.core.stats.StatsFormat
 import com.webtoapp.data.model.AppType
 import com.webtoapp.data.model.WebApp
+import com.webtoapp.ui.components.WtaAppIcon
 import com.webtoapp.ui.design.WtaAlertDialog
 import com.webtoapp.ui.design.WtaBadge
 import com.webtoapp.ui.design.WtaCard
