@@ -18969,7 +18969,7 @@ object StringsB {
     }
 
     val refresh: String get() = when (Strings.lang) {
-        AppLanguage.CHINESE -> "Refresh"
+        AppLanguage.CHINESE -> "刷新"
         AppLanguage.ENGLISH -> "Refresh"
         AppLanguage.ARABIC -> "تحديث"
         AppLanguage.PORTUGUESE -> "Atualizar"
