@@ -88,6 +88,7 @@ import com.webtoapp.ui.design.WtaButtonVariant
 import com.webtoapp.ui.design.WtaCard
 import com.webtoapp.ui.design.WtaCardTone
 import com.webtoapp.ui.design.WtaColors
+import com.webtoapp.ui.design.WtaLoadingState
 import com.webtoapp.ui.design.WtaScreen
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -277,23 +278,13 @@ fun LinuxEnvironmentScreen(onBack: () -> Unit) {
                 item { CapabilitiesBoard() }
             } else {
                 item {
-                    WtaCard(tone = WtaCardTone.Surface, contentPadding = PaddingValues(0.dp)) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(24.dp),
-                            horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            CircularProgressIndicator(modifier = Modifier.size(22.dp), strokeWidth = 2.dp)
-                            Spacer(Modifier.width(12.dp))
-                            Text(
-                                Strings.preparingBuildEnv,
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-                    }
+                    WtaLoadingState(
+                        message = Strings.preparingBuildEnv,
+                        fillMaxSize = false,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 48.dp)
+                    )
                 }
             }
 
@@ -375,12 +366,15 @@ fun LinuxEnvironmentScreen(onBack: () -> Unit) {
 
 @Composable
 private fun SectionHeader(title: String, hint: String?) {
-    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+    Column(
+        modifier = Modifier.padding(top = 4.dp, bottom = 2.dp),
+        verticalArrangement = Arrangement.spacedBy(2.dp)
+    ) {
         Text(
             text = title,
             style = MaterialTheme.typography.titleSmall,
             fontWeight = FontWeight.SemiBold,
-            color = MaterialTheme.colorScheme.onSurface
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         if (!hint.isNullOrBlank()) {
             Text(
@@ -477,15 +471,22 @@ private fun ReadinessHero(
                         overflow = TextOverflow.Ellipsis
                     )
                     if (info != null) {
-                        Spacer(Modifier.height(8.dp))
-                        Text(
-                            text = Strings.linuxEnvReadinessScore(
-                                (if (info.nodeReady) 1 else 0) + (if (info.npmReady) 1 else 0) + optionalReady,
-                                2 + optionalTotal
-                            ),
-                            style = MaterialTheme.typography.labelLarge,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                        Spacer(Modifier.height(10.dp))
+                        Surface(
+                            shape = RoundedCornerShape(999.dp),
+                            color = ringColor.copy(alpha = 0.12f)
+                        ) {
+                            Text(
+                                text = Strings.linuxEnvReadinessScore(
+                                    (if (info.nodeReady) 1 else 0) + (if (info.npmReady) 1 else 0) + optionalReady,
+                                    2 + optionalTotal
+                                ),
+                                style = MaterialTheme.typography.labelMedium,
+                                fontWeight = FontWeight.SemiBold,
+                                color = ringColor,
+                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
+                            )
+                        }
                     }
                 }
             }
@@ -512,29 +513,6 @@ private fun ReadinessHero(
                             overflow = TextOverflow.Ellipsis
                         )
                     }
-                }
-            }
-
-            if (info != null) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    MetricPill(
-                        label = Strings.buildTools,
-                        value = formatSize(info.storageUsed),
-                        modifier = Modifier.weight(1f)
-                    )
-                    MetricPill(
-                        label = Strings.cache,
-                        value = formatSize(info.cacheSize),
-                        modifier = Modifier.weight(1f)
-                    )
-                    MetricPill(
-                        label = Strings.linuxEnvOptionalShort,
-                        value = "$optionalReady/$optionalTotal",
-                        modifier = Modifier.weight(1f)
-                    )
                 }
             }
 
@@ -617,39 +595,6 @@ private fun ReadinessRing(
 }
 
 @Composable
-private fun MetricPill(
-    label: String,
-    value: String,
-    modifier: Modifier = Modifier
-) {
-    Surface(
-        modifier = modifier,
-        shape = RoundedCornerShape(14.dp),
-        color = MaterialTheme.colorScheme.surfaceContainerHigh
-    ) {
-        Column(
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 10.dp),
-            verticalArrangement = Arrangement.spacedBy(2.dp)
-        ) {
-            Text(
-                text = value,
-                style = MaterialTheme.typography.titleSmall,
-                fontWeight = FontWeight.SemiBold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-            Text(
-                text = label,
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-        }
-    }
-}
-
-@Composable
 private fun CoreToolchainCard(info: EnvironmentInfo) {
     WtaCard(tone = WtaCardTone.Surface, contentPadding = PaddingValues(0.dp)) {
         Column(modifier = Modifier.fillMaxWidth()) {
@@ -707,14 +652,11 @@ private fun CoreToolRow(
         Column(modifier = Modifier.weight(1f)) {
             Text(name, style = MaterialTheme.typography.titleSmall, fontWeight = FontWeight.SemiBold)
             Text(
-                text = if (ready) (version ?: Strings.installed) else Strings.notInstalled,
+                text = "${if (ready) (version ?: Strings.installed) else Strings.notInstalled} · $role",
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            Text(
-                text = role,
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
         StatusDot(ready = ready)
@@ -1184,11 +1126,6 @@ private fun CapabilitiesBoard() {
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Text(
-                text = Strings.supportedFeatures,
-                style = MaterialTheme.typography.titleSmall,
-                fontWeight = FontWeight.SemiBold
-            )
             FlowRow(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
