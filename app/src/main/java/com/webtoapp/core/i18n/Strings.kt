@@ -2962,6 +2962,10 @@ object Strings {
     val changeWebViewProviderDesc: String get() = StringsD.changeWebViewProviderDesc
     val installedBrowsers: String get() = StringsD.installedBrowsers
     val installedBrowsersDesc: String get() = StringsD.installedBrowsersDesc
+    val webViewProvidersTitle: String get() = StringsD.webViewProvidersTitle
+    val webViewProvidersDesc: String get() = StringsD.webViewProvidersDesc
+    val noOtherWebViewProviders: String get() = StringsD.noOtherWebViewProviders
+    val singleWebViewProviderNote: String get() = StringsD.singleWebViewProviderNote
     val noBrowserInstalled: String get() = StringsD.noBrowserInstalled
     val recommendedBrowsers: String get() = StringsD.recommendedBrowsers
     val recommendedBrowsersDesc: String get() = StringsD.recommendedBrowsersDesc
@@ -42280,6 +42284,58 @@ object StringsD {
         AppLanguage.RUSSIAN -> "Эти браузеры могут быть поставщиком WebView"
         AppLanguage.JAPANESE -> "これらのブラウザは WebView プロバイダーとして機能する可能性があります"
         AppLanguage.KOREAN -> "이러한 브라우저는 WebView 제공자로 지원될 수 있습니다"
+    }
+
+    val webViewProvidersTitle: String get() = when (Strings.lang) {
+        AppLanguage.CHINESE -> "可作为 WebView 提供者的应用"
+        AppLanguage.ENGLISH -> "Apps that can provide WebView"
+        AppLanguage.ARABIC -> "التطبيقات التي يمكنها توفير WebView"
+        AppLanguage.PORTUGUESE -> "Apps que podem ser provedores WebView"
+        AppLanguage.SPANISH -> "Apps que pueden ser proveedores WebView"
+        AppLanguage.FRENCH -> "Apps pouvant fournir WebView"
+        AppLanguage.GERMAN -> "Apps als WebView-Anbieter"
+        AppLanguage.RUSSIAN -> "Приложения-поставщики WebView"
+        AppLanguage.JAPANESE -> "WebView プロバイダーになれるアプリ"
+        AppLanguage.KOREAN -> "WebView 제공자가 될 수 있는 앱"
+    }
+
+    val webViewProvidersDesc: String get() = when (Strings.lang) {
+        AppLanguage.CHINESE -> "仅列出系统白名单中允许作为 WebView 实现的已安装应用"
+        AppLanguage.ENGLISH -> "Only installed apps whitelisted by the system as WebView implementations"
+        AppLanguage.ARABIC -> "يعرض فقط التطبيقات المثبتة الموجودة في القائمة البيضاء للنظام كتطبيقات WebView"
+        AppLanguage.PORTUGUESE -> "Lista apenas apps instalados permitidos pelo sistema como implementações WebView"
+        AppLanguage.SPANISH -> "Solo se listan las apps instaladas permitidas por el sistema como WebView"
+        AppLanguage.FRENCH -> "Seules les apps installées autorisées par le système comme implémentations WebView"
+        AppLanguage.GERMAN -> "Nur installierte Apps aus der System-Whitelist für WebView-Implementierungen"
+        AppLanguage.RUSSIAN -> "Только установленные приложения из системного белого списка WebView"
+        AppLanguage.JAPANESE -> "システムのホワイトリストにある WebView 実装として許可されたインストール済みアプリのみ"
+        AppLanguage.KOREAN -> "시스템 화이트리스트에서 WebView 구현으로 허용된 설치 앱만 표시"
+    }
+
+    val noOtherWebViewProviders: String get() = when (Strings.lang) {
+        AppLanguage.CHINESE -> "此设备上没有其他可作为 WebView 提供者的应用"
+        AppLanguage.ENGLISH -> "No other WebView-capable providers installed"
+        AppLanguage.ARABIC -> "لا توجد موفرات WebView أخرى مثبتة"
+        AppLanguage.PORTUGUESE -> "Nenhum outro provedor WebView instalado"
+        AppLanguage.SPANISH -> "No hay otros proveedores WebView instalados"
+        AppLanguage.FRENCH -> "Aucun autre fournisseur WebView installé"
+        AppLanguage.GERMAN -> "Keine weiteren WebView-Anbieter installiert"
+        AppLanguage.RUSSIAN -> "Других поставщиков WebView не установлено"
+        AppLanguage.JAPANESE -> "他の WebView プロバイダーはインストールされていません"
+        AppLanguage.KOREAN -> "설치된 다른 WebView 제공자가 없습니다"
+    }
+
+    val singleWebViewProviderNote: String get() = when (Strings.lang) {
+        AppLanguage.CHINESE -> "此设备只有一个 WebView 实现，系统不支持切换"
+        AppLanguage.ENGLISH -> "This device has a single WebView implementation; switching is not supported"
+        AppLanguage.ARABIC -> "يحتوي هذا الجهاز على تطبيق WebView واحد فقط؛ التبديل غير مدعوم"
+        AppLanguage.PORTUGUESE -> "Este dispositivo tem uma única implementação WebView; a troca não é suportada"
+        AppLanguage.SPANISH -> "Este dispositivo solo tiene una implementación WebView; no se puede cambiar"
+        AppLanguage.FRENCH -> "Cet appareil n'a qu'une seule implémentation WebView ; le changement n'est pas possible"
+        AppLanguage.GERMAN -> "Dieses Gerät hat nur eine WebView-Implementierung; ein Wechsel wird nicht unterstützt"
+        AppLanguage.RUSSIAN -> "На этом устройстве только одна реализация WebView; переключение не поддерживается"
+        AppLanguage.JAPANESE -> "この端末には WebView 実装が 1 つしかなく、切り替えはサポートされていません"
+        AppLanguage.KOREAN -> "이 기기에는 WebView 구현이 하나뿐이며 전환을 지원하지 않습니다"
     }
 
     val noBrowserInstalled: String get() = when (Strings.lang) {

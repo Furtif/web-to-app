@@ -1,24 +1,16 @@
 package com.webtoapp.ui.screens
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.webtoapp.ui.design.WtaSwitch
-import com.webtoapp.ui.components.PremiumOutlinedButton
 
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.provider.Settings
-import android.webkit.WebView
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.*
@@ -26,36 +18,33 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.webtoapp.ui.components.EnhancedElevatedCard
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
-import com.webtoapp.util.BoundedBitmaps.toBoundedBitmap
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.drawable.toBitmap
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.webkit.WebViewCompat
 import com.webtoapp.core.engine.EngineManager
 import com.webtoapp.core.engine.EngineStatus
 import com.webtoapp.core.engine.EngineType
 import com.webtoapp.core.engine.download.DownloadState
 import com.webtoapp.core.engine.download.GeckoEngineDownloader
-
 import com.webtoapp.core.i18n.Strings
-import com.webtoapp.util.openUrl
+import com.webtoapp.ui.components.PremiumOutlinedButton
+import com.webtoapp.ui.design.WtaAlertDialog
+import com.webtoapp.ui.design.WtaBadge
+import com.webtoapp.ui.design.WtaCard
+import com.webtoapp.ui.design.WtaCardTone
+import com.webtoapp.ui.design.WtaEmptyState
+import com.webtoapp.ui.design.WtaRadius
+import com.webtoapp.ui.design.WtaScreen
+import com.webtoapp.ui.design.WtaSection
+import com.webtoapp.ui.design.WtaSpacing
+import com.webtoapp.util.BoundedBitmaps.toBoundedBitmap
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import androidx.compose.ui.graphics.Color
-import com.webtoapp.ui.design.WtaBadge
-import com.webtoapp.ui.design.WtaEmptyState
-import com.webtoapp.ui.design.WtaScreen
-import com.webtoapp.ui.design.WtaSection
-import com.webtoapp.ui.design.WtaRadius
-import com.webtoapp.ui.design.WtaSettingRow
-import com.webtoapp.ui.design.WtaChoiceRow
-import com.webtoapp.ui.design.WtaSpacing
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -67,7 +56,7 @@ fun BrowserKernelScreen(
 
     var webViewInfo by remember { mutableStateOf<WebViewInfo?>(null) }
 
-    var installedBrowsers by remember { mutableStateOf<List<BrowserInfo>>(emptyList()) }
+    var webViewProviders by remember { mutableStateOf<List<BrowserInfo>>(emptyList()) }
 
     val engineManager = remember { EngineManager.getInstance(context) }
     val geckoDownloader = remember { GeckoEngineDownloader(context, engineManager.fileManager) }
@@ -79,7 +68,7 @@ fun BrowserKernelScreen(
     LaunchedEffect(Unit) {
         withContext(Dispatchers.IO) {
             webViewInfo = getWebViewInfo(context)
-            installedBrowsers = getInstalledBrowsers(context)
+            webViewProviders = getInstalledWebViewProviders(context)
         }
     }
 
@@ -138,12 +127,15 @@ fun BrowserKernelScreen(
             }
             }
 
+            val hasAlternatives = webViewProviders.any { it.packageName != webViewInfo?.packageName }
+
             item {
                 WtaSection(
                     title = Strings.currentWebViewInfo
                 ) {
                 CurrentWebViewCard(
                     webViewInfo = webViewInfo,
+                    canChangeProvider = hasAlternatives,
                     onOpenDeveloperOptions = {
                         openDeveloperOptions(context)
                     }
@@ -153,54 +145,36 @@ fun BrowserKernelScreen(
 
             item {
                 WtaSection(
-                    title = Strings.installedBrowsers,
-                    description = Strings.installedBrowsersDesc
+                    title = Strings.webViewProvidersTitle,
+                    description = Strings.webViewProvidersDesc
                 ) {
-                    if (installedBrowsers.isEmpty()) {
+                    if (webViewProviders.isEmpty()) {
                         WtaEmptyState(
-                            title = Strings.noBrowserInstalled,
+                            title = Strings.noOtherWebViewProviders,
                             icon = Icons.Outlined.SearchOff
                         )
                     } else {
-                        installedBrowsers.forEach { browser ->
-                            InstalledBrowserCard(
-                                browser = browser,
-                                isCurrentProvider = webViewInfo?.packageName == browser.packageName,
-                                onOpen = {
-                                    openApp(context, browser.packageName)
-                                }
+                        val sorted = webViewProviders.sortedWith(
+                            compareByDescending<BrowserInfo> { it.packageName == webViewInfo?.packageName }
+                                .thenBy { it.name.lowercase() }
+                        )
+                        sorted.forEach { provider ->
+                            WebViewProviderCard(
+                                browser = provider,
+                                isCurrentProvider = webViewInfo?.packageName == provider.packageName
                             )
                         }
                     }
                 }
             }
 
-            item {
-                WtaSection(
-                    title = Strings.recommendedBrowsers,
-                    description = Strings.recommendedBrowsersDesc
-                ) {
-                    getRecommendedBrowsers().forEach { browser ->
-                        val isInstalled = installedBrowsers.any { it.packageName == browser.packageName }
-                        RecommendedBrowserCard(
-                            browser = browser,
-                            isInstalled = isInstalled,
-                            onDownload = {
-                                openPlayStore(context, browser.packageName)
-                            },
-                            onOpenUrl = {
-                                openUrl(context, browser.downloadUrl)
-                            }
-                        )
+            if (hasAlternatives) {
+                item {
+                    WtaSection(
+                        title = Strings.howToEnableDeveloperOptions
+                    ) {
+                        HelpCard()
                     }
-                }
-            }
-
-            item {
-                WtaSection(
-                    title = Strings.howToEnableDeveloperOptions
-                ) {
-                    HelpCard()
                 }
             }
 
@@ -210,10 +184,12 @@ fun BrowserKernelScreen(
         }
 
         if (showDeleteDialog) {
-            AlertDialog(
+            WtaAlertDialog(
                 onDismissRequest = { showDeleteDialog = false },
-                title = { Text(Strings.engineDeleteBtn) },
-                text = { Text(Strings.engineDeleteConfirm) },
+                icon = Icons.Outlined.Delete,
+                iconTint = MaterialTheme.colorScheme.error,
+                title = Strings.engineDeleteBtn,
+                text = Strings.engineDeleteConfirm,
                 confirmButton = {
                     TextButton(onClick = {
                         engineManager.deleteEngine(EngineType.GECKOVIEW)
@@ -238,13 +214,13 @@ fun BrowserKernelScreen(
 @Composable
 private fun CurrentWebViewCard(
     webViewInfo: WebViewInfo?,
+    canChangeProvider: Boolean,
     onOpenDeveloperOptions: () -> Unit
 ) {
-    EnhancedElevatedCard(
+    WtaCard(
         modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer
-        )
+        tone = WtaCardTone.Highlighted,
+        contentPadding = PaddingValues(0.dp)
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
@@ -280,24 +256,43 @@ private fun CurrentWebViewCard(
                 )
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            if (webViewInfo != null) {
+                Spacer(modifier = Modifier.height(16.dp))
 
-            PremiumOutlinedButton(
-                onClick = onOpenDeveloperOptions,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Icon(Icons.Outlined.Settings, null, modifier = Modifier.size(18.dp))
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(Strings.changeWebViewProvider)
+                if (canChangeProvider) {
+                    PremiumOutlinedButton(
+                        onClick = onOpenDeveloperOptions,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Icon(Icons.Outlined.Settings, null, modifier = Modifier.size(18.dp))
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(Strings.changeWebViewProvider)
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Text(
+                        Strings.changeWebViewProviderDesc,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
+                    )
+                } else {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            Icons.Outlined.Info,
+                            contentDescription = null,
+                            modifier = Modifier.size(16.dp),
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            Strings.singleWebViewProviderNote,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
+                        )
+                    }
+                }
             }
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Text(
-                Strings.changeWebViewProviderDesc,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
-            )
         }
     }
 }
@@ -328,30 +323,6 @@ private fun InfoRow(
 }
 
 @Composable
-private fun SectionHeader(
-    title: String,
-    subtitle: String? = null
-) {
-    Column(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Text(
-            title,
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.SemiBold
-        )
-        if (subtitle != null) {
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                subtitle,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        }
-    }
-}
-
-@Composable
 private fun EngineCard(
     name: String,
     description: String,
@@ -361,8 +332,9 @@ private fun EngineCard(
     isDefault: Boolean = false,
     actions: @Composable ColumnScope.() -> Unit
 ) {
-    EnhancedElevatedCard(
-        modifier = Modifier.fillMaxWidth()
+    WtaCard(
+        modifier = Modifier.fillMaxWidth(),
+        contentPadding = PaddingValues(0.dp)
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
@@ -486,11 +458,10 @@ private fun GeckoViewEngineCard(
 
         AnimatedVisibility(visible = downloadState is DownloadState.Error) {
             val errorMsg = (downloadState as? DownloadState.Error)?.message ?: ""
-            EnhancedElevatedCard(
+            WtaCard(
                 modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.errorContainer
-                )
+                tone = WtaCardTone.Critical,
+                contentPadding = PaddingValues(0.dp)
             ) {
                 Row(
                     modifier = Modifier.padding(12.dp),
@@ -582,16 +553,14 @@ private fun formatFileSize(bytes: Long): String {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun InstalledBrowserCard(
+private fun WebViewProviderCard(
     browser: BrowserInfo,
-    isCurrentProvider: Boolean,
-    onOpen: () -> Unit
+    isCurrentProvider: Boolean
 ) {
-    EnhancedElevatedCard(
+    WtaCard(
         modifier = Modifier.fillMaxWidth(),
-        onClick = onOpen
+        contentPadding = PaddingValues(0.dp)
     ) {
         Row(
             modifier = Modifier
@@ -621,15 +590,15 @@ private fun InstalledBrowserCard(
                 modifier = Modifier
                     .size(48.dp)
                     .clip(RoundedCornerShape(WtaRadius.Card))
-                    .background(MaterialTheme.colorScheme.primaryContainer)
+                    .background(MaterialTheme.colorScheme.primaryContainer),
+                contentAlignment = Alignment.Center
             ) {
-                    Box(contentAlignment = Alignment.Center) {
                         Icon(
                             Icons.Outlined.Language,
                             contentDescription = null,
-                            modifier = Modifier.size(24.dp)
+                            modifier = Modifier.size(24.dp),
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer
                         )
-                    }
                 }
             }
 
@@ -653,114 +622,10 @@ private fun InstalledBrowserCard(
                 }
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    browser.version,
+                    "${browser.version} · ${browser.packageName}",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-                if (browser.canBeWebViewProvider) {
-                    WtaBadge(
-                        text = Strings.canBeWebViewProvider,
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
-                }
-            }
-
-            Icon(
-                Icons.Default.ChevronRight,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        }
-    }
-}
-
-@Composable
-private fun RecommendedBrowserCard(
-    browser: RecommendedBrowser,
-    isInstalled: Boolean,
-    onDownload: () -> Unit,
-    onOpenUrl: () -> Unit
-) {
-    EnhancedElevatedCard(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-
-                Box(
-                    modifier = Modifier
-                        .size(48.dp)
-                        .clip(RoundedCornerShape(WtaRadius.Card))
-                        .background(MaterialTheme.colorScheme.primaryContainer),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        browser.icon,
-                        contentDescription = null,
-                        modifier = Modifier.size(28.dp),
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
-                }
-
-            Spacer(modifier = Modifier.width(16.dp))
-
-            Column(modifier = Modifier.weight(weight = 1f, fill = true)) {
-                Text(
-                    browser.name,
-                    style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.Medium
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    browser.description,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
-
-            Spacer(modifier = Modifier.width(8.dp))
-
-            if (isInstalled) {
-                WtaBadge(
-                    text = Strings.installed,
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-                )
-            } else {
-                Row {
-
-                    FilledTonalButton(
-                        onClick = onDownload,
-                        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp)
-                    ) {
-                        Icon(
-                            Icons.Outlined.Shop,
-                            contentDescription = null,
-                            modifier = Modifier.size(16.dp)
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(Strings.download, style = MaterialTheme.typography.labelMedium)
-                    }
-
-                    if (browser.downloadUrl.isNotEmpty() && !browser.downloadUrl.startsWith("market://")) {
-                        Spacer(modifier = Modifier.width(8.dp))
-                        IconButton(
-                            onClick = onOpenUrl,
-                            modifier = Modifier.size(36.dp)
-                        ) {
-                            Icon(
-                                Icons.Outlined.Language,
-                                contentDescription = Strings.openInBrowser,
-                                modifier = Modifier.size(20.dp)
-                            )
-                        }
-                    }
-                }
             }
         }
     }
@@ -768,11 +633,9 @@ private fun RecommendedBrowserCard(
 
 @Composable
 private fun HelpCard() {
-    EnhancedElevatedCard(
+    WtaCard(
         modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.tertiaryContainer
-        )
+        contentPadding = PaddingValues(0.dp)
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
@@ -783,14 +646,13 @@ private fun HelpCard() {
                 Icon(
                     Icons.Outlined.HelpOutline,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onTertiaryContainer
+                    tint = MaterialTheme.colorScheme.tertiary
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     Strings.howToEnableDeveloperOptions,
                     style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.colorScheme.onTertiaryContainer
+                    fontWeight = FontWeight.SemiBold
                 )
             }
 
@@ -799,7 +661,7 @@ private fun HelpCard() {
             Text(
                 Strings.developerOptionsSteps,
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onTertiaryContainer
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -807,7 +669,7 @@ private fun HelpCard() {
             Text(
                 Strings.webViewNote,
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.7f)
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }
@@ -823,54 +685,7 @@ data class BrowserInfo(
     val name: String,
     val packageName: String,
     val version: String,
-    val icon: android.graphics.drawable.Drawable?,
-    val canBeWebViewProvider: Boolean
-)
-
-data class RecommendedBrowser(
-    val name: String,
-    val packageName: String,
-    val description: String,
-    val downloadUrl: String,
-    val icon: androidx.compose.ui.graphics.vector.ImageVector
-)
-
-private fun getRecommendedBrowsers(): List<RecommendedBrowser> = listOf(
-    RecommendedBrowser(
-        name = "Google Chrome",
-        packageName = "com.android.chrome",
-        description = Strings.browserChromeDesc,
-        downloadUrl = "market://details?id=com.android.chrome",
-        icon = Icons.Outlined.Language
-    ),
-    RecommendedBrowser(
-        name = "Microsoft Edge",
-        packageName = "com.microsoft.emmx",
-        description = Strings.browserEdgeDesc,
-        downloadUrl = "market://details?id=com.microsoft.emmx",
-        icon = Icons.Outlined.Explore
-    ),
-    RecommendedBrowser(
-        name = "Mozilla Firefox",
-        packageName = "org.mozilla.firefox",
-        description = Strings.browserFirefoxDesc,
-        downloadUrl = "market://details?id=org.mozilla.firefox",
-        icon = Icons.Outlined.LocalFireDepartment
-    ),
-    RecommendedBrowser(
-        name = "Brave",
-        packageName = "com.brave.browser",
-        description = Strings.browserBraveDesc,
-        downloadUrl = "market://details?id=com.brave.browser",
-        icon = Icons.Outlined.Shield
-    ),
-    RecommendedBrowser(
-        name = "Via Browser",
-        packageName = "mark.via.gp",
-        description = Strings.browserViaDesc,
-        downloadUrl = "market://details?id=mark.via.gp",
-        icon = Icons.Outlined.Speed
-    )
+    val icon: android.graphics.drawable.Drawable?
 )
 
 private fun getWebViewInfo(context: Context): WebViewInfo {
@@ -898,40 +713,29 @@ private fun getDefaultWebViewInfo(): WebViewInfo {
     )
 }
 
-private fun getInstalledBrowsers(context: Context): List<BrowserInfo> {
+// AOSP default for config_webViewPackages; OEMs may override or extend it.
+private val DEFAULT_WEBVIEW_PROVIDER_PACKAGES = setOf(
+    "com.google.android.webview",
+    "com.android.webview",
+    "com.android.chrome",
+    "com.chrome.beta",
+    "com.chrome.dev",
+    "com.chrome.canary"
+)
+
+// Only packages in the framework's WebView whitelist can actually act as
+// providers — being a browser does not qualify an app.
+private fun getWebViewProviderWhitelist(): Set<String> {
+    return runCatching {
+        val res = android.content.res.Resources.getSystem()
+        val id = res.getIdentifier("config_webViewPackages", "array", "android")
+        if (id != 0) res.getStringArray(id).toSet() else emptySet()
+    }.getOrDefault(emptySet()).ifEmpty { DEFAULT_WEBVIEW_PROVIDER_PACKAGES }
+}
+
+private fun getInstalledWebViewProviders(context: Context): List<BrowserInfo> {
     val pm = context.packageManager
-    val browsers = mutableListOf<BrowserInfo>()
-
-    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"))
-    val resolveInfoList = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        pm.queryIntentActivities(intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_ALL.toLong()))
-    } else {
-        @Suppress("DEPRECATION")
-        pm.queryIntentActivities(intent, PackageManager.MATCH_ALL)
-    }
-
-    val webViewProviderPackages = setOf(
-        "com.android.chrome",
-        "com.chrome.beta",
-        "com.chrome.dev",
-        "com.chrome.canary",
-        "com.google.android.webview",
-        "com.microsoft.emmx",
-        "com.brave.browser",
-        "com.opera.browser",
-        "com.opera.mini.native"
-    )
-
-    for (resolveInfo in resolveInfoList) {
-        val packageName = resolveInfo.activityInfo.packageName
-
-        if (packageName == context.packageName ||
-            packageName == "android" ||
-            packageName.contains("resolver") ||
-            packageName.contains("chooser")) {
-            continue
-        }
-
+    return getWebViewProviderWhitelist().mapNotNull { packageName ->
         try {
             val appInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 pm.getApplicationInfo(packageName, PackageManager.ApplicationInfoFlags.of(0))
@@ -939,32 +743,22 @@ private fun getInstalledBrowsers(context: Context): List<BrowserInfo> {
                 @Suppress("DEPRECATION")
                 pm.getApplicationInfo(packageName, 0)
             }
-
             val packageInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 pm.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0))
             } else {
                 @Suppress("DEPRECATION")
                 pm.getPackageInfo(packageName, 0)
             }
-
-            browsers.add(
-                BrowserInfo(
-                    name = appInfo.loadLabel(pm).toString(),
-                    packageName = packageName,
-                    version = packageInfo.versionName ?: "Unknown",
-                    icon = appInfo.loadIcon(pm),
-                    canBeWebViewProvider = webViewProviderPackages.contains(packageName)
-                )
+            BrowserInfo(
+                name = appInfo.loadLabel(pm).toString(),
+                packageName = packageName,
+                version = packageInfo.versionName ?: "Unknown",
+                icon = appInfo.loadIcon(pm)
             )
         } catch (e: Exception) {
-
+            null
         }
-    }
-
-    return browsers.sortedWith(
-        compareByDescending<BrowserInfo> { it.canBeWebViewProvider }
-            .thenBy { it.name }
-    )
+    }.sortedBy { it.name.lowercase() }
 }
 
 private fun openDeveloperOptions(context: Context) {
@@ -979,39 +773,5 @@ private fun openDeveloperOptions(context: Context) {
         } catch (e2: Exception) {
 
         }
-    }
-}
-
-private fun openApp(context: Context, packageName: String) {
-    try {
-        val intent = context.packageManager.getLaunchIntentForPackage(packageName)
-        if (intent != null) {
-            context.startActivity(intent)
-        }
-    } catch (e: Exception) {
-
-    }
-}
-
-private fun openPlayStore(context: Context, packageName: String) {
-    try {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName"))
-        context.startActivity(intent)
-    } catch (e: Exception) {
-
-        try {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$packageName"))
-            context.startActivity(intent)
-        } catch (e2: Exception) {
-
-        }
-    }
-}
-
-private fun openUrl(context: Context, url: String) {
-    try {
-        context.openUrl(url)
-    } catch (e: Exception) {
-
     }
 }
