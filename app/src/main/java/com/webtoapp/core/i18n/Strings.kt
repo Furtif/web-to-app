@@ -2983,6 +2983,7 @@ object Strings {
     val noMatchingScripts: String get() = StringsD.noMatchingScripts
     val matchRules: String get() = StringsD.matchRules
     val extensionModulesTab: String get() = StringsD.extensionModulesTab
+    val moduleDeleteConfirm: String get() = StringsD.moduleDeleteConfirm
     val userScriptsTab: String get() = StringsD.userScriptsTab
     val noUserScripts: String get() = StringsD.noUserScripts
     val noUserScriptsHint: String get() = StringsD.noUserScriptsHint
@@ -3779,6 +3780,9 @@ object Strings {
     val cwsSortReviews: String get() = StringsE.cwsSortReviews
     val cwsSortDownloads: String get() = StringsE.cwsSortDownloads
     val greasyForkTab: String get() = StringsE.greasyForkTab
+    val noGreasyForkScripts: String get() = StringsE.noGreasyForkScripts
+    val greasyForkEmptyHint: String get() = StringsE.greasyForkEmptyHint
+    val browseGreasyFork: String get() = StringsE.browseGreasyFork
     val gfSearchHint: String get() = StringsE.gfSearchHint
     val gfSearching: String get() = StringsE.gfSearching
     val gfNoResults: String get() = StringsE.gfNoResults
@@ -42551,6 +42555,19 @@ object StringsD {
         AppLanguage.KOREAN -> "확장 프로그램"
     }
 
+    val moduleDeleteConfirm: String get() = when (Strings.lang) {
+        AppLanguage.CHINESE -> "确定要删除这个模块吗？"
+        AppLanguage.ENGLISH -> "Delete this module?"
+        AppLanguage.ARABIC -> "هل تريد حذف هذه الوحدة؟"
+        AppLanguage.PORTUGUESE -> "Excluir este módulo?"
+        AppLanguage.SPANISH -> "¿Eliminar este módulo?"
+        AppLanguage.FRENCH -> "Supprimer ce module ?"
+        AppLanguage.GERMAN -> "Dieses Modul löschen?"
+        AppLanguage.RUSSIAN -> "Удалить этот модуль?"
+        AppLanguage.JAPANESE -> "このモジュールを削除しますか？"
+        AppLanguage.KOREAN -> "이 모듈을 삭제할까요?"
+    }
+
     val userScriptsTab: String get() = when (Strings.lang) {
         AppLanguage.CHINESE -> "浏览器扩展"
         AppLanguage.ENGLISH -> "Browser Extensions"
@@ -52289,17 +52306,57 @@ object StringsE {
     }
 
     val greasyForkTab: String get() = when (Strings.lang) {
-        AppLanguage.CHINESE -> "GreasyFork 脚本"
-        AppLanguage.ENGLISH -> "GreasyFork Scripts"
-        AppLanguage.ARABIC -> "سكربتات GreasyFork"
-        AppLanguage.PORTUGUESE -> "Scripts GreasyFork"
-        AppLanguage.SPANISH -> "Scripts GreasyFork"
-        AppLanguage.FRENCH -> "Scripts GreasyFork"
-        AppLanguage.GERMAN -> "GreasyFork-Skripte"
-        AppLanguage.RUSSIAN -> "Скрипты GreasyFork"
-        AppLanguage.JAPANESE -> "GreasyFork スクリプト"
-        AppLanguage.KOREAN -> "GreasyFork 스크립트"
+        AppLanguage.CHINESE -> "GreasyFork"
+        AppLanguage.ENGLISH -> "GreasyFork"
+        AppLanguage.ARABIC -> "GreasyFork"
+        AppLanguage.PORTUGUESE -> "GreasyFork"
+        AppLanguage.SPANISH -> "GreasyFork"
+        AppLanguage.FRENCH -> "GreasyFork"
+        AppLanguage.GERMAN -> "GreasyFork"
+        AppLanguage.RUSSIAN -> "GreasyFork"
+        AppLanguage.JAPANESE -> "GreasyFork"
+        AppLanguage.KOREAN -> "GreasyFork"
     }
+
+    val noGreasyForkScripts: String get() = when (Strings.lang) {
+        AppLanguage.CHINESE -> "暂无 GreasyFork 脚本"
+        AppLanguage.ENGLISH -> "No GreasyFork scripts yet"
+        AppLanguage.ARABIC -> "لا توجد سكربتات GreasyFork بعد"
+        AppLanguage.PORTUGUESE -> "Ainda não há scripts do GreasyFork"
+        AppLanguage.SPANISH -> "Aún no hay scripts de GreasyFork"
+        AppLanguage.FRENCH -> "Pas encore de scripts GreasyFork"
+        AppLanguage.GERMAN -> "Noch keine GreasyFork-Skripte"
+        AppLanguage.RUSSIAN -> "Пока нет скриптов GreasyFork"
+        AppLanguage.JAPANESE -> "GreasyFork スクリプトはまだありません"
+        AppLanguage.KOREAN -> "아직 GreasyFork 스크립트가 없습니다"
+    }
+
+    val greasyForkEmptyHint: String get() = when (Strings.lang) {
+        AppLanguage.CHINESE -> "从扩展商店浏览安装，或导入 .user.js 文件"
+        AppLanguage.ENGLISH -> "Browse the store to install, or import a .user.js file"
+        AppLanguage.ARABIC -> "تصفح المتجر للتثبيت أو استورد ملف .user.js"
+        AppLanguage.PORTUGUESE -> "Navegue pela loja para instalar ou importe um arquivo .user.js"
+        AppLanguage.SPANISH -> "Explora la tienda para instalar o importa un archivo .user.js"
+        AppLanguage.FRENCH -> "Parcourez la boutique pour installer ou importez un fichier .user.js"
+        AppLanguage.GERMAN -> "Im Store stöbern oder eine .user.js-Datei importieren"
+        AppLanguage.RUSSIAN -> "Установите из магазина или импортируйте файл .user.js"
+        AppLanguage.JAPANESE -> "ストアからインストールするか、.user.js ファイルをインポート"
+        AppLanguage.KOREAN -> "스토어에서 설치하거나 .user.js 파일을 가져오세요"
+    }
+
+    val browseGreasyFork: String get() = when (Strings.lang) {
+        AppLanguage.CHINESE -> "逛逛 GreasyFork"
+        AppLanguage.ENGLISH -> "Browse GreasyFork"
+        AppLanguage.ARABIC -> "تصفح GreasyFork"
+        AppLanguage.PORTUGUESE -> "Explorar GreasyFork"
+        AppLanguage.SPANISH -> "Explorar GreasyFork"
+        AppLanguage.FRENCH -> "Parcourir GreasyFork"
+        AppLanguage.GERMAN -> "GreasyFork durchsuchen"
+        AppLanguage.RUSSIAN -> "Открыть GreasyFork"
+        AppLanguage.JAPANESE -> "GreasyFork を見る"
+        AppLanguage.KOREAN -> "GreasyFork 둘러보기"
+    }
+
     val gfSearchHint: String get() = when (Strings.lang) {
         AppLanguage.CHINESE -> "搜索 GreasyFork 脚本"
         AppLanguage.ENGLISH -> "Search GreasyFork scripts"

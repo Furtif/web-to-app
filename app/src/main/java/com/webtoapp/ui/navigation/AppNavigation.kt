@@ -110,6 +110,7 @@ object Routes {
     }
 
     fun buildApk(appId: Long) = "build_apk/$appId"
+    fun moduleMarket(tab: Int = 0) = "module_market?initialTab=$tab"
 
     fun editApp(appId: Long) = "edit_app/$appId"
     fun editWebApp(appId: Long) = "edit_web_app/$appId"
@@ -743,7 +744,7 @@ fun AppNavigation() {
                         }
                     },
                     onNavigateToAiDeveloper = { navController.navigate(Routes.AGENT) },
-                    onNavigateToMarket = { navController.navigate(Routes.MODULE_MARKET) }
+                    onNavigateToMarket = { tab -> navController.navigate(Routes.moduleMarket(tab)) }
                 )
             }
 
