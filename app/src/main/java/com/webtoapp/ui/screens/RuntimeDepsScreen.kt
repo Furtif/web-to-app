@@ -41,15 +41,11 @@ import androidx.compose.material.icons.outlined.Javascript
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material.icons.outlined.RocketLaunch
-import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.Speed
 import androidx.compose.material.icons.outlined.Storage
 import androidx.compose.material.icons.outlined.Terminal
-import androidx.compose.material.icons.outlined.Warning
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
@@ -67,7 +63,6 @@ import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -87,6 +82,7 @@ import com.webtoapp.core.linux.LocalBuildEnvironment
 import com.webtoapp.core.nodejs.NodeDependencyManager
 import com.webtoapp.core.python.PythonDependencyManager
 import com.webtoapp.core.wordpress.WordPressDependencyManager
+import com.webtoapp.ui.design.WtaAlertDialog
 import com.webtoapp.ui.design.WtaButton
 import com.webtoapp.ui.design.WtaButtonSize
 import com.webtoapp.ui.design.WtaButtonVariant
@@ -94,21 +90,13 @@ import com.webtoapp.ui.design.WtaCard
 import com.webtoapp.ui.design.WtaCardTone
 import com.webtoapp.ui.design.WtaChip
 import com.webtoapp.ui.design.WtaColors
-import com.webtoapp.ui.design.WtaFullEmptyState
 import com.webtoapp.ui.design.WtaScreen
-import com.webtoapp.ui.design.WtaTextField
 import com.webtoapp.ui.theme.AppColors
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.Locale
-
-private enum class RuntimeFilter {
-    ALL,
-    READY,
-    MISSING
-}
 
 private enum class RuntimeKind {
     PHP,
@@ -174,8 +162,6 @@ fun RuntimeDepsScreen(onBack: () -> Unit) {
     var isRefreshing by remember { mutableStateOf(false) }
     var downloadProgress by remember { mutableFloatStateOf(0f) }
     var downloadLabel by remember { mutableStateOf("") }
-    var query by rememberSaveable { mutableStateOf("") }
-    var filterName by rememberSaveable { mutableStateOf(RuntimeFilter.ALL.name) }
     var showClearAllDialog by remember { mutableStateOf(false) }
     var clearTarget by remember { mutableStateOf<RuntimeKind?>(null) }
 
@@ -290,7 +276,6 @@ fun RuntimeDepsScreen(onBack: () -> Unit) {
     val readyCount = listOf(phpReady, wpReady, sqliteReady, nodeReady, pythonReady, goReady).count { it }
     val totalCount = 6
     val allReady = readyCount == totalCount
-    val filter = runCatching { RuntimeFilter.valueOf(filterName) }.getOrDefault(RuntimeFilter.ALL)
 
     val entries = remember(
         phpReady, wpReady, sqliteReady, nodeReady, pythonReady, goReady,
@@ -371,23 +356,6 @@ fun RuntimeDepsScreen(onBack: () -> Unit) {
                 section = RuntimeSection.PLUGIN
             )
         )
-    }
-
-    val filteredEntries = remember(entries, query, filter) {
-        val q = query.trim()
-        entries.filter { entry ->
-            val statusOk = when (filter) {
-                RuntimeFilter.ALL -> true
-                RuntimeFilter.READY -> entry.isReady
-                RuntimeFilter.MISSING -> !entry.isReady
-            }
-            if (!statusOk) return@filter false
-            if (q.isEmpty()) return@filter true
-            entry.title.contains(q, ignoreCase = true) ||
-                entry.description.contains(q, ignoreCase = true) ||
-                entry.version.contains(q, ignoreCase = true) ||
-                entry.kind.name.contains(q, ignoreCase = true)
-        }
     }
 
     val projectStats = remember(wpProjectCount, nodeProjectCount, pythonProjectCount, goProjectCount, docsProjectCount) {
@@ -541,6 +509,7 @@ fun RuntimeDepsScreen(onBack: () -> Unit) {
                     isPaused = isPaused,
                     downloadProgress = downloadProgress,
                     downloadLabel = downloadLabel,
+                    onDownloadAll = ::runDownloadAll,
                     onPause = { DependencyDownloadEngine.pause() },
                     onResume = { DependencyDownloadEngine.resume() },
                     onCancel = { DependencyDownloadEngine.cancel() }
@@ -548,92 +517,43 @@ fun RuntimeDepsScreen(onBack: () -> Unit) {
             }
 
             item {
-                WtaTextField(
-                    value = query,
-                    onValueChange = { query = it },
-                    modifier = Modifier.fillMaxWidth(),
-                    placeholder = Strings.depSearchHint,
-                    leadingIcon = Icons.Outlined.Search,
-                    singleLine = true
-                )
-            }
-
-            item {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .horizontalScroll(rememberScrollState()),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    WtaChip(
-                        selected = filter == RuntimeFilter.ALL,
-                        onClick = { filterName = RuntimeFilter.ALL.name },
-                        label = Strings.filterAll
-                    )
-                    WtaChip(
-                        selected = filter == RuntimeFilter.READY,
-                        onClick = { filterName = RuntimeFilter.READY.name },
-                        label = Strings.depFilterReady
-                    )
-                    WtaChip(
-                        selected = filter == RuntimeFilter.MISSING,
-                        onClick = { filterName = RuntimeFilter.MISSING.name },
-                        label = Strings.depFilterMissing
-                    )
-                }
-            }
-
-            item {
                 DownloadMirrorCard(
                     mirrorRegion = wpMirrorRegion,
-                    allReady = allReady,
                     isDownloading = isDownloading,
-                    onMirrorChange = ::applyMirror,
-                    onDownloadAll = ::runDownloadAll
+                    onMirrorChange = ::applyMirror
                 )
             }
 
-            if (filteredEntries.isEmpty()) {
+            val runtimes = entries.filter { it.section == RuntimeSection.RUNTIME }
+            val plugins = entries.filter { it.section == RuntimeSection.PLUGIN }
+
+            if (runtimes.isNotEmpty()) {
                 item {
-                    WtaFullEmptyState(
-                        title = Strings.depNoMatch,
-                        message = Strings.runtimeDepsSubtitle,
-                        icon = Icons.Outlined.Storage,
-                        fillMaxSize = false
+                    SectionLabel(Strings.depSectionRuntimes)
+                }
+                items(runtimes, key = { it.kind.name }) { entry ->
+                    RuntimeEntryCard(
+                        entry = entry,
+                        busy = isDownloading,
+                        onInstall = { runInstall(entry.kind, reinstall = false) },
+                        onReinstall = { runInstall(entry.kind, reinstall = true) },
+                        onClear = { clearTarget = entry.kind }
                     )
                 }
-            } else {
-                val runtimes = filteredEntries.filter { it.section == RuntimeSection.RUNTIME }
-                val plugins = filteredEntries.filter { it.section == RuntimeSection.PLUGIN }
+            }
 
-                if (runtimes.isNotEmpty()) {
-                    item {
-                        SectionLabel(Strings.depSectionRuntimes)
-                    }
-                    items(runtimes, key = { it.kind.name }) { entry ->
-                        RuntimeEntryCard(
-                            entry = entry,
-                            busy = isDownloading,
-                            onInstall = { runInstall(entry.kind, reinstall = false) },
-                            onReinstall = { runInstall(entry.kind, reinstall = true) },
-                            onClear = { clearTarget = entry.kind }
-                        )
-                    }
+            if (plugins.isNotEmpty()) {
+                item {
+                    SectionLabel(Strings.depSectionRuntimePlugins)
                 }
-
-                if (plugins.isNotEmpty()) {
-                    item {
-                        SectionLabel(Strings.depSectionRuntimePlugins)
-                    }
-                    items(plugins, key = { it.kind.name }) { entry ->
-                        RuntimeEntryCard(
-                            entry = entry,
-                            busy = isDownloading,
-                            onInstall = { runInstall(entry.kind, reinstall = false) },
-                            onReinstall = { runInstall(entry.kind, reinstall = true) },
-                            onClear = { clearTarget = entry.kind }
-                        )
-                    }
+                items(plugins, key = { it.kind.name }) { entry ->
+                    RuntimeEntryCard(
+                        entry = entry,
+                        busy = isDownloading,
+                        onInstall = { runInstall(entry.kind, reinstall = false) },
+                        onReinstall = { runInstall(entry.kind, reinstall = true) },
+                        onClear = { clearTarget = entry.kind }
+                    )
                 }
             }
 
@@ -655,7 +575,6 @@ fun RuntimeDepsScreen(onBack: () -> Unit) {
                     goCacheSize = goCacheSize,
                     totalSize = totalCacheSize,
                     enabled = !isDownloading && totalCacheSize > 0,
-                    onClearTarget = { kind -> clearTarget = kind },
                     onClearAll = { showClearAllDialog = true }
                 )
             }
@@ -665,11 +584,12 @@ fun RuntimeDepsScreen(onBack: () -> Unit) {
     }
 
     if (showClearAllDialog) {
-        AlertDialog(
+        WtaAlertDialog(
             onDismissRequest = { showClearAllDialog = false },
-            icon = { Icon(Icons.Outlined.DeleteSweep, null) },
-            title = { Text(Strings.depClearAll) },
-            text = { Text(Strings.depClearConfirm) },
+            icon = Icons.Outlined.DeleteSweep,
+            iconTint = MaterialTheme.colorScheme.error,
+            title = Strings.depClearAll,
+            text = Strings.depClearConfirm,
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -708,11 +628,12 @@ fun RuntimeDepsScreen(onBack: () -> Unit) {
             RuntimeKind.PYTHON -> "Python"
             RuntimeKind.GO -> "Go"
         }
-        AlertDialog(
+        WtaAlertDialog(
             onDismissRequest = { clearTarget = null },
-            icon = { Icon(Icons.Outlined.Delete, null, tint = MaterialTheme.colorScheme.error) },
-            title = { Text(Strings.depClearRuntime) },
-            text = { Text(Strings.depConfirmClearCache(label)) },
+            icon = Icons.Outlined.Delete,
+            iconTint = MaterialTheme.colorScheme.error,
+            title = Strings.depClearRuntime,
+            text = Strings.depConfirmClearCache(label),
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -787,10 +708,16 @@ private fun StatusOverviewCard(
     isPaused: Boolean,
     downloadProgress: Float,
     downloadLabel: String,
+    onDownloadAll: () -> Unit,
     onPause: () -> Unit,
     onResume: () -> Unit,
     onCancel: () -> Unit
 ) {
+    val statusColor = when {
+        isDownloading -> MaterialTheme.colorScheme.primary
+        allReady -> WtaColors.semantic.success
+        else -> MaterialTheme.colorScheme.tertiary
+    }
     WtaCard(tone = WtaCardTone.Highlighted) {
         Column(
             modifier = Modifier
@@ -806,7 +733,7 @@ private fun StatusOverviewCard(
                     modifier = Modifier
                         .size(48.dp)
                         .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.surfaceContainerHigh),
+                        .background(statusColor.copy(alpha = 0.14f)),
                     contentAlignment = Alignment.Center
                 ) {
                     if (isDownloading && !isPaused) {
@@ -822,8 +749,7 @@ private fun StatusOverviewCard(
                                 else -> Icons.Outlined.Speed
                             },
                             contentDescription = null,
-                            tint = if (allReady) WtaColors.semantic.success
-                            else MaterialTheme.colorScheme.onSurfaceVariant,
+                            tint = statusColor,
                             modifier = Modifier.size(26.dp)
                         )
                     }
@@ -851,6 +777,27 @@ private fun StatusOverviewCard(
                         text = Strings.depTotalStorage,
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+
+            if (!isDownloading) {
+                LinearProgressIndicator(
+                    progress = { readyCount.toFloat() / totalCount },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(6.dp)
+                        .clip(RoundedCornerShape(999.dp)),
+                    color = statusColor,
+                    trackColor = MaterialTheme.colorScheme.surfaceContainerHighest
+                )
+                if (!allReady) {
+                    WtaButton(
+                        onClick = onDownloadAll,
+                        text = Strings.depDownloadAll,
+                        variant = WtaButtonVariant.Primary,
+                        modifier = Modifier.fillMaxWidth(),
+                        leadingIcon = Icons.Outlined.CloudDownload
                     )
                 }
             }
@@ -908,10 +855,8 @@ private fun StatusOverviewCard(
 @Composable
 private fun DownloadMirrorCard(
     mirrorRegion: WordPressDependencyManager.MirrorRegion?,
-    allReady: Boolean,
     isDownloading: Boolean,
-    onMirrorChange: (String) -> Unit,
-    onDownloadAll: () -> Unit
+    onMirrorChange: (String) -> Unit
 ) {
     val isCn = mirrorRegion == WordPressDependencyManager.MirrorRegion.CN
     val isGlobal = mirrorRegion == WordPressDependencyManager.MirrorRegion.GLOBAL
@@ -957,18 +902,6 @@ private fun DownloadMirrorCard(
                     onClick = { onMirrorChange("auto") },
                     label = Strings.depMirrorAuto,
                     enabled = !isDownloading
-                )
-            }
-
-            if (!allReady) {
-                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
-                WtaButton(
-                    onClick = onDownloadAll,
-                    text = if (isDownloading) Strings.depStatusDownloading else Strings.depDownloadAll,
-                    variant = WtaButtonVariant.Primary,
-                    modifier = Modifier.fillMaxWidth(),
-                    enabled = !isDownloading,
-                    leadingIcon = if (isDownloading) null else Icons.Outlined.CloudDownload
                 )
             }
         }
@@ -1091,12 +1024,12 @@ private fun RuntimeEntryCard(
 @Composable
 private fun StatusBadge(text: String, ready: Boolean) {
     val container = if (ready) {
-        AppColors.Success.copy(alpha = 0.12f)
+        WtaColors.semantic.success.copy(alpha = 0.12f)
     } else {
         MaterialTheme.colorScheme.surfaceContainerHighest
     }
     val content = if (ready) {
-        AppColors.Success
+        WtaColors.semantic.success
     } else {
         MaterialTheme.colorScheme.onSurfaceVariant
     }
@@ -1129,41 +1062,48 @@ private fun MetaChip(text: String) {
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun ProjectsCard(stats: List<ProjectStat>) {
-    WtaCard(tone = WtaCardTone.Surface) {
-        Column(modifier = Modifier.fillMaxWidth()) {
-            stats.forEachIndexed { index, stat ->
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 12.dp),
-                    verticalAlignment = Alignment.CenterVertically
+    WtaCard(
+        tone = WtaCardTone.Surface,
+        contentPadding = PaddingValues(12.dp)
+    ) {
+        FlowRow(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            stats.forEach { stat ->
+                Surface(
+                    shape = RoundedCornerShape(10.dp),
+                    color = MaterialTheme.colorScheme.surfaceContainerLow
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .size(10.dp)
-                            .clip(CircleShape)
-                            .background(stat.color)
-                    )
-                    Spacer(Modifier.width(12.dp))
-                    Text(
-                        text = stat.name,
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.weight(1f)
-                    )
-                    Text(
-                        text = Strings.depProjectCount(stat.count),
-                        style = MaterialTheme.typography.labelLarge,
-                        fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-                if (index < stats.lastIndex) {
-                    HorizontalDivider(
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                        color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f)
-                    )
+                    Row(
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(10.dp)
+                                .clip(CircleShape)
+                                .background(stat.color)
+                        )
+                        Spacer(Modifier.width(8.dp))
+                        Text(
+                            text = stat.name,
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                        Spacer(Modifier.width(8.dp))
+                        Text(
+                            text = "${stat.count}",
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
                 }
             }
         }
@@ -1179,7 +1119,6 @@ private fun StorageCard(
     goCacheSize: Long,
     totalSize: Long,
     enabled: Boolean,
-    onClearTarget: (RuntimeKind) -> Unit,
     onClearAll: () -> Unit
 ) {
     WtaCard(tone = WtaCardTone.Surface) {
@@ -1245,49 +1184,6 @@ private fun StorageCard(
                     }
                     if (goCacheSize > 0) {
                         StorageLegendItem("Go", goCacheSize, AppColors.Go)
-                    }
-                }
-
-                FlowRow(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    if (wpCacheSize > 0) {
-                        WtaButton(
-                            onClick = { onClearTarget(RuntimeKind.WORDPRESS) },
-                            text = "WordPress · ${formatSize(wpCacheSize)}",
-                            variant = WtaButtonVariant.Outlined,
-                            size = WtaButtonSize.Small,
-                            enabled = enabled
-                        )
-                    }
-                    if (nodeCacheSize > 0) {
-                        WtaButton(
-                            onClick = { onClearTarget(RuntimeKind.NODE) },
-                            text = "Node.js · ${formatSize(nodeCacheSize)}",
-                            variant = WtaButtonVariant.Outlined,
-                            size = WtaButtonSize.Small,
-                            enabled = enabled
-                        )
-                    }
-                    if (pythonCacheSize > 0) {
-                        WtaButton(
-                            onClick = { onClearTarget(RuntimeKind.PYTHON) },
-                            text = "Python · ${formatSize(pythonCacheSize)}",
-                            variant = WtaButtonVariant.Outlined,
-                            size = WtaButtonSize.Small,
-                            enabled = enabled
-                        )
-                    }
-                    if (goCacheSize > 0) {
-                        WtaButton(
-                            onClick = { onClearTarget(RuntimeKind.GO) },
-                            text = "Go · ${formatSize(goCacheSize)}",
-                            variant = WtaButtonVariant.Outlined,
-                            size = WtaButtonSize.Small,
-                            enabled = enabled
-                        )
                     }
                 }
             } else {
