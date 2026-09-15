@@ -4343,7 +4343,10 @@ class WebViewManager(
             }
 
         if (minimizeLocalRuntimeInjection) {
-            AppLogger.d("WebViewManager", "Skip extension/module injections for local runtime page (${runAt.name}): $url")
+            // Ambient machinery stays suppressed on local-runtime pages, but modules the
+            // user explicitly attached to this app are user intent — they must still run.
+            // Global-fallback modules keep being skipped: they are ambient, not attached.
+            injectAllExtensionModules(webView, url, runAt, appAttachedOnly = true)
             return
         }
 
@@ -5318,13 +5321,15 @@ class WebViewManager(
         ScriptRunTime.DOCUMENT_IDLE -> ModuleRunTime.DOCUMENT_IDLE
     }
 
-    private fun resolveActiveExtensionModules(): List<com.webtoapp.core.extension.ExtensionModule> {
+    private fun resolveActiveExtensionModules(
+        appAttachedOnly: Boolean = false
+    ): List<com.webtoapp.core.extension.ExtensionModule> {
         if (!extensionMasterEnabled) return emptyList()
         val baseModules = when {
             appExtensionModuleIds.isNotEmpty() -> {
                 ExtensionManager.getInstance(context).getModulesByIds(appExtensionModuleIds)
             }
-            allowGlobalModuleFallback -> {
+            !appAttachedOnly && allowGlobalModuleFallback -> {
                 ExtensionManager.getInstance(context).getEnabledModules()
             }
             else -> emptyList()
@@ -5353,7 +5358,17 @@ class WebViewManager(
         }
     }
 
-    private fun injectAllExtensionModules(webView: WebView, url: String, runAt: ScriptRunTime) {
+    /**
+     * @param appAttachedOnly On local-runtime pages: run only modules explicitly attached
+     * to this app (per-app ids or embedded). The global-fallback module set stays
+     * suppressed — it is ambient and local pages should not inherit unrelated scripts.
+     */
+    private fun injectAllExtensionModules(
+        webView: WebView,
+        url: String,
+        runAt: ScriptRunTime,
+        appAttachedOnly: Boolean = false
+    ) {
 
         if (!extensionMasterEnabled) {
 
@@ -5365,23 +5380,24 @@ class WebViewManager(
             return
         }
 
-        if (appExtensionModuleIds.isEmpty() && !allowGlobalModuleFallback) {
+        if (appExtensionModuleIds.isEmpty() && (appAttachedOnly || !allowGlobalModuleFallback)) {
             return
         }
 
         val extensionManager = ExtensionManager.getInstance(context)
-        if (extensionManager.isLoading.value && resolveActiveExtensionModules().isEmpty()) {
-            scheduleDeferredExtensionModuleInjection(webView, url, runAt)
+        if (extensionManager.isLoading.value && resolveActiveExtensionModules(appAttachedOnly).isEmpty()) {
+            scheduleDeferredExtensionModuleInjection(webView, url, runAt, appAttachedOnly)
             return
         }
 
-        performExtensionModuleInjection(webView, url, runAt)
+        performExtensionModuleInjection(webView, url, runAt, appAttachedOnly)
     }
 
     private fun scheduleDeferredExtensionModuleInjection(
         webView: WebView,
         url: String,
-        runAt: ScriptRunTime
+        runAt: ScriptRunTime,
+        appAttachedOnly: Boolean = false
     ) {
         val jobs = extensionModuleDeferredJobs.getOrPut(webView) { mutableMapOf() }
         val jobKey = buildPagePhaseExecutionKey(url, runAt)
@@ -5405,7 +5421,7 @@ class WebViewManager(
             if (ensureDesktopUaForDeferredChromeExt(webView)) {
                 return@launch
             }
-            performExtensionModuleInjection(webView, url, runAt)
+            performExtensionModuleInjection(webView, url, runAt, appAttachedOnly)
         }
     }
 
@@ -5471,11 +5487,16 @@ class WebViewManager(
         extensionModuleDeferredJobs.remove(webView)?.values?.forEach { it.cancel() }
     }
 
-    private fun performExtensionModuleInjection(webView: WebView, url: String, runAt: ScriptRunTime) {
+    private fun performExtensionModuleInjection(
+        webView: WebView,
+        url: String,
+        runAt: ScriptRunTime,
+        appAttachedOnly: Boolean = false
+    ) {
 
         val moduleRunAt = runAt.toModuleRunTime()
 
-        val allModules = resolveActiveExtensionModules()
+        val allModules = resolveActiveExtensionModules(appAttachedOnly)
         if (allModules.isEmpty()) {
             AppLogger.d("WebViewManager", "injectAllExtensionModules: No active modules (${runAt.name})")
             return

@@ -92,6 +92,11 @@ import com.webtoapp.core.stats.AppUsageTracker
 import androidx.compose.ui.text.style.TextOverflow
 import com.webtoapp.ui.components.announcement.toUiTemplate
 
+/** Marker prefixes used by our own injected wrappers (userscripts, modules, bridges). */
+private fun isOwnInjectionMarker(message: String): Boolean =
+    message.startsWith("[UserScript:") || message.startsWith("[WebToApp") ||
+        message.startsWith("[WTA]") || message.startsWith("[wta-")
+
 class WebViewActivity : AppCompatActivity() {
 
     companion object {
@@ -2837,6 +2842,12 @@ fun WebViewScreen(
                     else -> ConsoleLevel.LOG
                 }
                 AppLogger.d("WebViewConsole", "[$consoleLevel] $message ($sourceId:$lineNumber)")
+                // Marker-prefixed messages come from our injected wrappers (userscripts,
+                // modules, bridges) — without this they are only page-console noise.
+                if (level >= 3 && isOwnInjectionMarker(message)) {
+                    val line = "[$consoleLevel] $message ($sourceId:$lineNumber)"
+                    if (level >= 4) AppLogger.e("WebViewConsole", line) else AppLogger.w("WebViewConsole", line)
+                }
                 consoleMessages = consoleMessages + ConsoleLogEntry(
                     level = consoleLevel,
                     message = message,

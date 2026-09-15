@@ -23,6 +23,11 @@ private fun isLocalRuntimeShellUrl(url: String?): Boolean {
         url.startsWith("http://localhost:", ignoreCase = true)
 }
 
+/** Marker prefixes used by our own injected wrappers (userscripts, modules, bridges). */
+private fun isOwnInjectionMarker(message: String): Boolean =
+    message.startsWith("[UserScript:") || message.startsWith("[WebToApp") ||
+        message.startsWith("[WTA]") || message.startsWith("[wta-")
+
 fun createShellWebViewCallbacks(
     context: android.content.Context,
     config: ShellConfig,
@@ -66,6 +71,18 @@ fun createShellWebViewCallbacks(
                 else -> ConsoleLevel.LOG
             }
             AppLogger.d("ShellConsole", "[$consoleLevel] $message ($sourceId:$lineNumber)")
+            // Errors thrown inside our injected wrappers (userscripts, modules, bridges)
+            // only ever reach the page console — users see "script does nothing" with no
+            // trace. Echo marker-prefixed messages into the shell log so the copied error
+            // report / log file carries them.
+            if (level >= 3 && isOwnInjectionMarker(message)) {
+                val line = "[$consoleLevel] $message ($sourceId:$lineNumber)"
+                if (level >= 4) {
+                    com.webtoapp.core.shell.ShellLogger.e("ShellConsole", line)
+                } else {
+                    com.webtoapp.core.shell.ShellLogger.w("ShellConsole", line)
+                }
+            }
             onConsoleLog(ConsoleLogEntry(consoleLevel, message, sourceId, lineNumber, System.currentTimeMillis()))
         }
 
