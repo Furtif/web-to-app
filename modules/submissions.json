@@ -1,11 +1,10 @@
 {
   "schema": 1,
-  "generatedAt": "2026-07-13T14:52:28Z",
+  "generatedAt": "2026-09-17T13:37:28Z",
   "submissions": {
     "wta-auto-open-video-player": {
-      "prNumber": 134,
-      "prUrl": "https://github.com/shiaho777/web-to-app/pull/134",
-      "submittedAt": "2026-06-22T14:42:48Z",
+      "submittedAt": "2026-06-22T15:42:48+01:00",
+      "direct": true,
       "submitter": {
         "login": "Stremiouser666",
         "name": "Steveies",
@@ -25,31 +24,47 @@
       "submittedAt": "2026-05-23T15:28:53+08:00",
       "direct": true,
       "submitter": {
-        "login": "shiaho777",
-        "name": "shiaho",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/222622008?v=4",
-        "profileUrl": "https://github.com/shiaho777"
-      }
+        "login": "Furtif",
+        "name": "--=FurtiF™=--",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/11375035?v=4",
+        "profileUrl": "https://github.com/Furtif"
+      },
+      "contributors": [
+        {
+          "login": "shiaho777",
+          "name": "shiaho",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/222622008?v=4",
+          "profileUrl": "https://github.com/shiaho777"
+        }
+      ]
     },
     "wta-hello-world": {
       "submittedAt": "2026-05-16T01:13:57+08:00",
       "direct": true,
       "submitter": {
-        "login": "shiaho777",
-        "name": "shiaho",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/222622008?v=4",
-        "profileUrl": "https://github.com/shiaho777"
+        "login": "Furtif",
+        "name": "--=FurtiF™=--",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/11375035?v=4",
+        "profileUrl": "https://github.com/Furtif"
       }
     },
     "wta-reading-mode": {
       "submittedAt": "2026-05-23T15:28:53+08:00",
       "direct": true,
       "submitter": {
-        "login": "shiaho777",
-        "name": "shiaho",
-        "avatarUrl": "https://avatars.githubusercontent.com/u/222622008?v=4",
-        "profileUrl": "https://github.com/shiaho777"
-      }
+        "login": "Furtif",
+        "name": "--=FurtiF™=--",
+        "avatarUrl": "https://avatars.githubusercontent.com/u/11375035?v=4",
+        "profileUrl": "https://github.com/Furtif"
+      },
+      "contributors": [
+        {
+          "login": "shiaho777",
+          "name": "shiaho",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/222622008?v=4",
+          "profileUrl": "https://github.com/shiaho777"
+        }
+      ]
     },
     "wta-selection-actions": {
       "submittedAt": "2026-06-17T21:43:16+08:00",
@@ -82,9 +97,8 @@
       }
     },
     "wta-youtube-player": {
-      "prNumber": 149,
-      "prUrl": "https://github.com/shiaho777/web-to-app/pull/149",
-      "submittedAt": "2026-06-28T05:58:43Z",
+      "submittedAt": "2026-06-28T06:58:42+01:00",
+      "direct": true,
       "submitter": {
         "login": "Stremiouser666",
         "name": "Steveies",
