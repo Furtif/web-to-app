@@ -2,7 +2,7 @@
   {
     "name": "WebToApp",
     "description": "Turn any website into an installable app across iOS, Android, Windows, macOS and Linux, and generate a sharing link.",
-    "stargazers_count": 92,
+    "stargazers_count": 93,
     "forks_count": 25,
     "language": "Python",
     "pushed_at": "2026-09-14T14:42:06Z",
@@ -27,6 +27,15 @@
     "html_url": "https://github.com/shiaho777/turn-mcp"
   },
   {
+    "name": "LuaXIDE",
+    "description": "Android Lua IDE with built-in interpreter, visual UI designer, debugger, and APK builder — all on-device, no root required.",
+    "stargazers_count": 9,
+    "forks_count": 0,
+    "language": "C",
+    "pushed_at": "2026-09-12T09:30:14Z",
+    "html_url": "https://github.com/shiaho777/LuaXIDE"
+  },
+  {
     "name": "NexFiles",
     "description": "An open source Material Design file manager, for Android 5.0+.",
     "stargazers_count": 8,
@@ -34,15 +43,6 @@
     "language": "Kotlin",
     "pushed_at": "2026-09-17T04:00:45Z",
     "html_url": "https://github.com/shiaho777/NexFiles"
-  },
-  {
-    "name": "LuaXIDE",
-    "description": "Android Lua IDE with built-in interpreter, visual UI designer, debugger, and APK builder — all on-device, no root required.",
-    "stargazers_count": 8,
-    "forks_count": 0,
-    "language": "C",
-    "pushed_at": "2026-09-12T09:30:14Z",
-    "html_url": "https://github.com/shiaho777/LuaXIDE"
   },
   {
     "name": "zv-codec",
@@ -102,7 +102,7 @@
     "name": "anthropic-ui-skill",
     "description": "A Skill that allows AI to generate the UI design style of Anthropic Company. Its aesthetics are very good.",
     "stargazers_count": 5,
-    "forks_count": 2,
+    "forks_count": 1,
     "language": null,
     "pushed_at": "2026-05-28T08:50:31Z",
     "html_url": "https://github.com/shiaho777/anthropic-ui-skill"
@@ -167,7 +167,7 @@
     "stargazers_count": 1,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-09-17T21:59:52Z",
+    "pushed_at": "2026-09-18T12:14:01Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
   },
   {
