@@ -2,7 +2,7 @@
   {
     "name": "WebToApp",
     "description": "Turn any website into an installable app across iOS, Android, Windows, macOS and Linux, and generate a sharing link.",
-    "stargazers_count": 93,
+    "stargazers_count": 94,
     "forks_count": 25,
     "language": "Python",
     "pushed_at": "2026-09-14T14:42:06Z",
@@ -108,6 +108,15 @@
     "html_url": "https://github.com/shiaho777/anthropic-ui-skill"
   },
   {
+    "name": "qsyy",
+    "description": "汽水音乐第三方 Web 播放器 · 全端可用 · 本地缓存直读 / 在线播放 / 逐字歌词 / 音效 / 下载",
+    "stargazers_count": 4,
+    "forks_count": 0,
+    "language": "JavaScript",
+    "pushed_at": "2026-09-17T06:02:48Z",
+    "html_url": "https://github.com/shiaho777/qsyy"
+  },
+  {
     "name": "memx",
     "description": "MemX — ~100× lower LLM memory on Apple, original precision. Stable planes: ~9× phys · ~100× engine · ~300× vessel capability (bitexact).",
     "stargazers_count": 4,
@@ -124,15 +133,6 @@
     "language": "Swift",
     "pushed_at": "2026-09-14T12:39:27Z",
     "html_url": "https://github.com/shiaho777/clipshelf"
-  },
-  {
-    "name": "qsyy",
-    "description": "汽水音乐第三方 Web 播放器 · 全端可用 · 本地缓存直读 / 在线播放 / 逐字歌词 / 音效 / 下载",
-    "stargazers_count": 3,
-    "forks_count": 0,
-    "language": "JavaScript",
-    "pushed_at": "2026-09-17T06:02:48Z",
-    "html_url": "https://github.com/shiaho777/qsyy"
   },
   {
     "name": "An-Harness",
@@ -167,7 +167,7 @@
     "stargazers_count": 1,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-09-18T12:14:01Z",
+    "pushed_at": "2026-09-18T17:08:46Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
   },
   {
