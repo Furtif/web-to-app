@@ -2,7 +2,7 @@
   {
     "name": "WebToApp",
     "description": "Turn any website into an installable app across iOS, Android, Windows, macOS and Linux, and generate a sharing link.",
-    "stargazers_count": 94,
+    "stargazers_count": 95,
     "forks_count": 25,
     "language": "Python",
     "pushed_at": "2026-09-14T14:42:06Z",
@@ -32,7 +32,7 @@
     "stargazers_count": 9,
     "forks_count": 0,
     "language": "C",
-    "pushed_at": "2026-09-12T09:30:14Z",
+    "pushed_at": "2026-09-19T15:27:43Z",
     "html_url": "https://github.com/shiaho777/LuaXIDE"
   },
   {
@@ -167,7 +167,7 @@
     "stargazers_count": 1,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-09-18T17:08:46Z",
+    "pushed_at": "2026-09-19T05:27:27Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
   },
   {
