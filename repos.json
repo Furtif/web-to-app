@@ -32,7 +32,7 @@
     "stargazers_count": 9,
     "forks_count": 0,
     "language": "C",
-    "pushed_at": "2026-09-19T15:27:43Z",
+    "pushed_at": "2026-09-21T18:04:00Z",
     "html_url": "https://github.com/shiaho777/LuaXIDE"
   },
   {
@@ -54,6 +54,15 @@
     "html_url": "https://github.com/shiaho777/zv-codec"
   },
   {
+    "name": "andmx",
+    "description": "Android-native AI coding agent (AndMX)",
+    "stargazers_count": 7,
+    "forks_count": 2,
+    "language": "Kotlin",
+    "pushed_at": "2026-09-21T16:55:49Z",
+    "html_url": "https://github.com/shiaho777/andmx"
+  },
+  {
     "name": "revx",
     "description": "Rust reverse-engineering toolkit with CLI and local MCP server.",
     "stargazers_count": 7,
@@ -70,15 +79,6 @@
     "language": "Rust",
     "pushed_at": "2026-09-17T06:30:59Z",
     "html_url": "https://github.com/shiaho777/wgsql"
-  },
-  {
-    "name": "andmx",
-    "description": "Android-native AI coding agent (AndMX)",
-    "stargazers_count": 7,
-    "forks_count": 2,
-    "language": "Kotlin",
-    "pushed_at": "2026-09-17T04:01:39Z",
-    "html_url": "https://github.com/shiaho777/andmx"
   },
   {
     "name": "MacBottle",
@@ -113,7 +113,7 @@
     "stargazers_count": 4,
     "forks_count": 0,
     "language": "JavaScript",
-    "pushed_at": "2026-09-17T06:02:48Z",
+    "pushed_at": "2026-09-21T10:09:12Z",
     "html_url": "https://github.com/shiaho777/qsyy"
   },
   {
@@ -167,8 +167,17 @@
     "stargazers_count": 1,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-09-20T21:27:56Z",
+    "pushed_at": "2026-09-21T13:51:23Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
+  },
+  {
+    "name": "stratum",
+    "description": "Pure-C transformer inference engine for Apple Silicon — wired memory independent of model size (mmap streaming, NEON/Metal)",
+    "stargazers_count": 1,
+    "forks_count": 0,
+    "language": "C",
+    "pushed_at": "2026-09-21T09:55:49Z",
+    "html_url": "https://github.com/shiaho777/stratum"
   },
   {
     "name": "browser-engine-shia",
@@ -178,15 +187,6 @@
     "language": "TypeScript",
     "pushed_at": "2026-09-13T14:20:04Z",
     "html_url": "https://github.com/shiaho777/browser-engine-shia"
-  },
-  {
-    "name": "stratum",
-    "description": "Pure-C transformer inference engine for Apple Silicon — wired memory independent of model size (mmap streaming, NEON/Metal)",
-    "stargazers_count": 1,
-    "forks_count": 0,
-    "language": "C",
-    "pushed_at": "2026-09-10T16:28:14Z",
-    "html_url": "https://github.com/shiaho777/stratum"
   },
   {
     "name": "hard-metric-bench",
