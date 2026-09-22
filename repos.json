@@ -2,7 +2,7 @@
   {
     "name": "WebToApp",
     "description": "Turn any website into an installable app across iOS, Android, Windows, macOS and Linux, and generate a sharing link.",
-    "stargazers_count": 95,
+    "stargazers_count": 96,
     "forks_count": 25,
     "language": "Python",
     "pushed_at": "2026-09-14T14:42:06Z",
@@ -32,7 +32,7 @@
     "stargazers_count": 9,
     "forks_count": 0,
     "language": "C",
-    "pushed_at": "2026-09-21T18:04:00Z",
+    "pushed_at": "2026-09-22T04:28:54Z",
     "html_url": "https://github.com/shiaho777/LuaXIDE"
   },
   {
@@ -59,7 +59,7 @@
     "stargazers_count": 7,
     "forks_count": 2,
     "language": "Kotlin",
-    "pushed_at": "2026-09-21T16:55:49Z",
+    "pushed_at": "2026-09-22T04:30:25Z",
     "html_url": "https://github.com/shiaho777/andmx"
   },
   {
@@ -214,6 +214,15 @@
     "language": null,
     "pushed_at": "2026-07-31T07:26:23Z",
     "html_url": "https://github.com/shiaho777/issue-pr-ci-delivery"
+  },
+  {
+    "name": "vaultx",
+    "description": "VaultX — local-only encrypted vault for Android (Argon2id + Tink Streaming AEAD + Compose)",
+    "stargazers_count": 0,
+    "forks_count": 0,
+    "language": "Kotlin",
+    "pushed_at": "2026-09-22T04:31:43Z",
+    "html_url": "https://github.com/shiaho777/vaultx"
   },
   {
     "name": "LogSleuth",
