@@ -38,11 +38,20 @@
   {
     "name": "andmx",
     "description": "Android-native AI coding agent (AndMX)",
-    "stargazers_count": 8,
+    "stargazers_count": 9,
     "forks_count": 2,
     "language": "Kotlin",
     "pushed_at": "2026-09-27T13:43:57Z",
     "html_url": "https://github.com/shiaho777/andmx"
+  },
+  {
+    "name": "zv-codec",
+    "description": "Tiny video/audio codec optimized for screen recordings. 24% smaller than x265 lossless RGB at the same speed, ~1100 lines of C, no NN, no external deps.",
+    "stargazers_count": 9,
+    "forks_count": 0,
+    "language": "Python",
+    "pushed_at": "2026-05-22T17:43:02Z",
+    "html_url": "https://github.com/shiaho777/zv-codec"
   },
   {
     "name": "revx",
@@ -63,15 +72,6 @@
     "html_url": "https://github.com/shiaho777/NexFiles"
   },
   {
-    "name": "zv-codec",
-    "description": "Tiny video/audio codec optimized for screen recordings. 24% smaller than x265 lossless RGB at the same speed, ~1100 lines of C, no NN, no external deps.",
-    "stargazers_count": 8,
-    "forks_count": 0,
-    "language": "Python",
-    "pushed_at": "2026-05-22T17:43:02Z",
-    "html_url": "https://github.com/shiaho777/zv-codec"
-  },
-  {
     "name": "wgsql",
     "description": "GPU-accelerated columnar OLAP via WebGPU. One WGSL kernel, four backends.",
     "stargazers_count": 7,
@@ -83,7 +83,7 @@
   {
     "name": "An-Harness",
     "description": "Android-first on-device AI agent harness — exploring everything possible on Android",
-    "stargazers_count": 5,
+    "stargazers_count": 6,
     "forks_count": 2,
     "language": "Kotlin",
     "pushed_at": "2026-09-08T10:15:19Z",
@@ -149,7 +149,7 @@
     "stargazers_count": 2,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-09-30T06:17:48Z",
+    "pushed_at": "2026-09-30T22:50:32Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
   },
   {
@@ -160,6 +160,15 @@
     "language": null,
     "pushed_at": "2026-08-19T02:15:54Z",
     "html_url": "https://github.com/shiaho777/zcode-exports"
+  },
+  {
+    "name": "LogSleuth",
+    "description": "Root-free Android logcat viewer & embeddable zero-permission logging SDK",
+    "stargazers_count": 1,
+    "forks_count": 0,
+    "language": "Kotlin",
+    "pushed_at": "2026-10-01T04:03:42Z",
+    "html_url": "https://github.com/shiaho777/LogSleuth"
   },
   {
     "name": "stratum",
@@ -205,15 +214,6 @@
     "language": null,
     "pushed_at": "2026-07-31T07:26:23Z",
     "html_url": "https://github.com/shiaho777/issue-pr-ci-delivery"
-  },
-  {
-    "name": "LogSleuth",
-    "description": "Root-free Android logcat viewer & embeddable zero-permission logging SDK",
-    "stargazers_count": 0,
-    "forks_count": 0,
-    "language": "Kotlin",
-    "pushed_at": "2026-09-29T15:13:49Z",
-    "html_url": "https://github.com/shiaho777/LogSleuth"
   },
   {
     "name": "vaultx",
