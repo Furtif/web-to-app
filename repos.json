@@ -2,7 +2,7 @@
   {
     "name": "WebToApp",
     "description": "Turn any website into an installable app across iOS, Android, Windows, macOS and Linux, and generate a sharing link.",
-    "stargazers_count": 111,
+    "stargazers_count": 110,
     "forks_count": 27,
     "language": "Python",
     "pushed_at": "2026-09-14T14:42:06Z",
@@ -20,8 +20,8 @@
   {
     "name": "turn-mcp",
     "description": "Achieve infinite conversation turns in a single API request via turn-mcp.             Self-hosted MCP server with browser console for human-in-the-loop AI agents.",
-    "stargazers_count": 29,
-    "forks_count": 8,
+    "stargazers_count": 30,
+    "forks_count": 9,
     "language": "JavaScript",
     "pushed_at": "2026-05-02T08:31:52Z",
     "html_url": "https://github.com/shiaho777/turn-mcp"
@@ -38,7 +38,7 @@
   {
     "name": "andmx",
     "description": "Android-native AI coding agent (AndMX)",
-    "stargazers_count": 9,
+    "stargazers_count": 10,
     "forks_count": 2,
     "language": "Kotlin",
     "pushed_at": "2026-09-27T13:43:57Z",
@@ -83,7 +83,7 @@
   {
     "name": "An-Harness",
     "description": "Android-first on-device AI agent harness — exploring everything possible on Android",
-    "stargazers_count": 6,
+    "stargazers_count": 7,
     "forks_count": 2,
     "language": "Kotlin",
     "pushed_at": "2026-09-08T10:15:19Z",
@@ -149,7 +149,7 @@
     "stargazers_count": 2,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-10-02T13:35:03Z",
+    "pushed_at": "2026-10-02T22:47:31Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
   },
   {
@@ -178,6 +178,15 @@
     "language": "Kotlin",
     "pushed_at": "2026-10-01T04:03:42Z",
     "html_url": "https://github.com/shiaho777/LogSleuth"
+  },
+  {
+    "name": "vaultx",
+    "description": "VaultX — local-only encrypted vault for Android (Argon2id + Tink Streaming AEAD + Compose)",
+    "stargazers_count": 1,
+    "forks_count": 1,
+    "language": "Kotlin",
+    "pushed_at": "2026-09-22T04:31:43Z",
+    "html_url": "https://github.com/shiaho777/vaultx"
   },
   {
     "name": "browser-engine-shia",
@@ -214,15 +223,6 @@
     "language": null,
     "pushed_at": "2026-07-31T07:26:23Z",
     "html_url": "https://github.com/shiaho777/issue-pr-ci-delivery"
-  },
-  {
-    "name": "vaultx",
-    "description": "VaultX — local-only encrypted vault for Android (Argon2id + Tink Streaming AEAD + Compose)",
-    "stargazers_count": 0,
-    "forks_count": 0,
-    "language": "Kotlin",
-    "pushed_at": "2026-09-22T04:31:43Z",
-    "html_url": "https://github.com/shiaho777/vaultx"
   },
   {
     "name": "pocket-linux-images",
