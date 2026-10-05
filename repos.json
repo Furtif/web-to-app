@@ -39,7 +39,7 @@
     "name": "andmx",
     "description": "Android-native AI coding agent (AndMX)",
     "stargazers_count": 19,
-    "forks_count": 2,
+    "forks_count": 3,
     "language": "Kotlin",
     "pushed_at": "2026-09-27T13:43:57Z",
     "html_url": "https://github.com/shiaho777/andmx"
@@ -90,6 +90,15 @@
     "html_url": "https://github.com/shiaho777/An-Harness"
   },
   {
+    "name": "qsyy",
+    "description": "汽水音乐第三方 Web 播放器 · 全端可用 · 本地缓存直读 / 在线播放 / 逐字歌词 / 音效 / 下载",
+    "stargazers_count": 14,
+    "forks_count": 0,
+    "language": "JavaScript",
+    "pushed_at": "2026-09-26T01:27:46Z",
+    "html_url": "https://github.com/shiaho777/qsyy"
+  },
+  {
     "name": "MacBottle",
     "description": null,
     "stargazers_count": 14,
@@ -117,15 +126,6 @@
     "html_url": "https://github.com/shiaho777/anthropic-ui-skill"
   },
   {
-    "name": "qsyy",
-    "description": "汽水音乐第三方 Web 播放器 · 全端可用 · 本地缓存直读 / 在线播放 / 逐字歌词 / 音效 / 下载",
-    "stargazers_count": 13,
-    "forks_count": 0,
-    "language": "JavaScript",
-    "pushed_at": "2026-09-26T01:27:46Z",
-    "html_url": "https://github.com/shiaho777/qsyy"
-  },
-  {
     "name": "memx",
     "description": "MemX — ~100× lower LLM memory on Apple, original precision. Stable planes: ~9× phys · ~100× engine · ~300× vessel capability (bitexact).",
     "stargazers_count": 13,
@@ -149,8 +149,17 @@
     "stargazers_count": 11,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-10-04T13:17:30Z",
+    "pushed_at": "2026-10-04T22:12:55Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
+  },
+  {
+    "name": "float-android",
+    "description": "一部装在 Android 里的 AI 虚拟手机：拟真桌面、聊天、朋友圈、查手机、地图定位、语音/视频通话、日记日历。AI 角色有作息、日程、位置和长期记忆，会主动发消息、发帖互动。数据全在设备本地，联网只调你自己配置的 LLM/生图/语音 API。",
+    "stargazers_count": 11,
+    "forks_count": 4,
+    "language": "TypeScript",
+    "pushed_at": "2026-10-04T16:07:22Z",
+    "html_url": "https://github.com/shiaho777/float-android"
   },
   {
     "name": "stratum",
@@ -169,15 +178,6 @@
     "language": null,
     "pushed_at": "2026-08-19T02:15:54Z",
     "html_url": "https://github.com/shiaho777/zcode-exports"
-  },
-  {
-    "name": "float-android",
-    "description": "一部装在 Android 里的 AI 虚拟手机：拟真桌面、聊天、朋友圈、查手机、地图定位、语音/视频通话、日记日历。AI 角色有作息、日程、位置和长期记忆，会主动发消息、发帖互动。数据全在设备本地，联网只调你自己配置的 LLM/生图/语音 API。",
-    "stargazers_count": 10,
-    "forks_count": 2,
-    "language": "TypeScript",
-    "pushed_at": "2026-10-04T16:07:22Z",
-    "html_url": "https://github.com/shiaho777/float-android"
   },
   {
     "name": "LogSleuth",
@@ -246,7 +246,7 @@
     "name": "charter",
     "description": "Charter — agent-native Android framework: Compose design system, enforceable AGENTS.md contracts, and a one-command acceptance harness",
     "stargazers_count": 9,
-    "forks_count": 0,
+    "forks_count": 1,
     "language": "Kotlin",
     "pushed_at": "2026-09-10T05:36:50Z",
     "html_url": "https://github.com/shiaho777/charter"
