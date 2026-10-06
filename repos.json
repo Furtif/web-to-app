@@ -2,7 +2,7 @@
   {
     "name": "WebToApp",
     "description": "Turn any website into an installable app across iOS, Android, Windows, macOS and Linux, and generate a sharing link.",
-    "stargazers_count": 123,
+    "stargazers_count": 124,
     "forks_count": 29,
     "language": "Python",
     "pushed_at": "2026-09-14T14:42:06Z",
@@ -158,7 +158,7 @@
     "stargazers_count": 11,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-10-05T15:37:55Z",
+    "pushed_at": "2026-10-06T00:37:57Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
   },
   {
@@ -171,6 +171,15 @@
     "html_url": "https://github.com/shiaho777/stratum"
   },
   {
+    "name": "LogSleuth",
+    "description": "Root-free Android logcat viewer & embeddable zero-permission logging SDK",
+    "stargazers_count": 11,
+    "forks_count": 0,
+    "language": "Kotlin",
+    "pushed_at": "2026-10-01T04:03:42Z",
+    "html_url": "https://github.com/shiaho777/LogSleuth"
+  },
+  {
     "name": "zcode-exports",
     "description": "Export ZCode session data to Markdown as a skill",
     "stargazers_count": 11,
@@ -178,15 +187,6 @@
     "language": null,
     "pushed_at": "2026-08-19T02:15:54Z",
     "html_url": "https://github.com/shiaho777/zcode-exports"
-  },
-  {
-    "name": "LogSleuth",
-    "description": "Root-free Android logcat viewer & embeddable zero-permission logging SDK",
-    "stargazers_count": 10,
-    "forks_count": 0,
-    "language": "Kotlin",
-    "pushed_at": "2026-10-01T04:03:42Z",
-    "html_url": "https://github.com/shiaho777/LogSleuth"
   },
   {
     "name": "vaultx",
