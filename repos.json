@@ -2,7 +2,7 @@
   {
     "name": "WebToApp",
     "description": "Turn any website into an installable app across iOS, Android, Windows, macOS and Linux, and generate a sharing link.",
-    "stargazers_count": 124,
+    "stargazers_count": 126,
     "forks_count": 29,
     "language": "Python",
     "pushed_at": "2026-09-14T14:42:06Z",
@@ -95,7 +95,7 @@
     "stargazers_count": 14,
     "forks_count": 0,
     "language": "JavaScript",
-    "pushed_at": "2026-09-26T01:27:46Z",
+    "pushed_at": "2026-10-06T14:35:24Z",
     "html_url": "https://github.com/shiaho777/qsyy"
   },
   {
@@ -149,8 +149,17 @@
     "stargazers_count": 12,
     "forks_count": 6,
     "language": "TypeScript",
-    "pushed_at": "2026-10-04T16:07:22Z",
+    "pushed_at": "2026-10-06T14:34:55Z",
     "html_url": "https://github.com/shiaho777/float-android"
+  },
+  {
+    "name": "LogSleuth",
+    "description": "Root-free Android logcat viewer & embeddable zero-permission logging SDK",
+    "stargazers_count": 11,
+    "forks_count": 0,
+    "language": "Kotlin",
+    "pushed_at": "2026-10-06T14:21:27Z",
+    "html_url": "https://github.com/shiaho777/LogSleuth"
   },
   {
     "name": "pyj-j",
@@ -158,7 +167,7 @@
     "stargazers_count": 11,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-10-06T00:37:57Z",
+    "pushed_at": "2026-10-06T07:12:36Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
   },
   {
@@ -169,15 +178,6 @@
     "language": "C",
     "pushed_at": "2026-10-01T12:31:03Z",
     "html_url": "https://github.com/shiaho777/stratum"
-  },
-  {
-    "name": "LogSleuth",
-    "description": "Root-free Android logcat viewer & embeddable zero-permission logging SDK",
-    "stargazers_count": 11,
-    "forks_count": 0,
-    "language": "Kotlin",
-    "pushed_at": "2026-10-01T04:03:42Z",
-    "html_url": "https://github.com/shiaho777/LogSleuth"
   },
   {
     "name": "zcode-exports",
