@@ -2,7 +2,7 @@
   {
     "name": "WebToApp",
     "description": "Turn any website into an installable app across iOS, Android, Windows, macOS and Linux, and generate a sharing link.",
-    "stargazers_count": 127,
+    "stargazers_count": 129,
     "forks_count": 29,
     "language": "Python",
     "pushed_at": "2026-09-14T14:42:06Z",
@@ -90,6 +90,15 @@
     "html_url": "https://github.com/shiaho777/An-Harness"
   },
   {
+    "name": "MacBottle",
+    "description": null,
+    "stargazers_count": 14,
+    "forks_count": 0,
+    "language": "Swift",
+    "pushed_at": "2026-10-07T08:15:41Z",
+    "html_url": "https://github.com/shiaho777/MacBottle"
+  },
+  {
     "name": "qsyy",
     "description": "汽水音乐第三方 Web 播放器 · 全端可用 · 本地缓存直读 / 在线播放 / 逐字歌词 / 音效 / 下载",
     "stargazers_count": 14,
@@ -99,13 +108,13 @@
     "html_url": "https://github.com/shiaho777/qsyy"
   },
   {
-    "name": "MacBottle",
-    "description": null,
+    "name": "LogSleuth",
+    "description": "Root-free Android logcat viewer & embeddable zero-permission logging SDK",
     "stargazers_count": 14,
     "forks_count": 0,
-    "language": "Swift",
-    "pushed_at": "2026-09-03T09:14:05Z",
-    "html_url": "https://github.com/shiaho777/MacBottle"
+    "language": "Kotlin",
+    "pushed_at": "2026-10-06T14:21:27Z",
+    "html_url": "https://github.com/shiaho777/LogSleuth"
   },
   {
     "name": "echomind",
@@ -124,15 +133,6 @@
     "language": null,
     "pushed_at": "2026-05-28T08:50:31Z",
     "html_url": "https://github.com/shiaho777/anthropic-ui-skill"
-  },
-  {
-    "name": "LogSleuth",
-    "description": "Root-free Android logcat viewer & embeddable zero-permission logging SDK",
-    "stargazers_count": 13,
-    "forks_count": 0,
-    "language": "Kotlin",
-    "pushed_at": "2026-10-06T14:21:27Z",
-    "html_url": "https://github.com/shiaho777/LogSleuth"
   },
   {
     "name": "memx",
@@ -167,7 +167,7 @@
     "stargazers_count": 11,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-10-06T22:55:26Z",
+    "pushed_at": "2026-10-07T14:28:11Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
   },
   {
@@ -176,7 +176,7 @@
     "stargazers_count": 11,
     "forks_count": 0,
     "language": "C",
-    "pushed_at": "2026-10-01T12:31:03Z",
+    "pushed_at": "2026-10-07T08:11:29Z",
     "html_url": "https://github.com/shiaho777/stratum"
   },
   {
