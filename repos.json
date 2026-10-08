@@ -2,10 +2,10 @@
   {
     "name": "WebToApp",
     "description": "Turn any website into an installable app across iOS, Android, Windows, macOS and Linux, and generate a sharing link.",
-    "stargazers_count": 130,
+    "stargazers_count": 132,
     "forks_count": 29,
     "language": "Python",
-    "pushed_at": "2026-10-08T03:16:16Z",
+    "pushed_at": "2026-10-08T09:56:33Z",
     "html_url": "https://github.com/shiaho777/WebToApp"
   },
   {
@@ -54,6 +54,15 @@
     "html_url": "https://github.com/shiaho777/zv-codec"
   },
   {
+    "name": "NexFiles",
+    "description": "An open source Material Design file manager, for Android 5.0+.",
+    "stargazers_count": 17,
+    "forks_count": 0,
+    "language": "Kotlin",
+    "pushed_at": "2026-10-08T08:26:18Z",
+    "html_url": "https://github.com/shiaho777/NexFiles"
+  },
+  {
     "name": "revx",
     "description": "Rust reverse-engineering toolkit with CLI and local MCP server.",
     "stargazers_count": 17,
@@ -61,15 +70,6 @@
     "language": "Rust",
     "pushed_at": "2026-09-17T08:50:31Z",
     "html_url": "https://github.com/shiaho777/revx"
-  },
-  {
-    "name": "NexFiles",
-    "description": "An open source Material Design file manager, for Android 5.0+.",
-    "stargazers_count": 17,
-    "forks_count": 0,
-    "language": "Kotlin",
-    "pushed_at": "2026-09-17T04:00:45Z",
-    "html_url": "https://github.com/shiaho777/NexFiles"
   },
   {
     "name": "wgsql",
@@ -138,7 +138,7 @@
     "name": "float-android",
     "description": "一部装在 Android 里的 AI 虚拟手机：拟真桌面、聊天、朋友圈、查手机、地图定位、语音/视频通话、日记日历。AI 角色有作息、日程、位置和长期记忆，会主动发消息、发帖互动。数据全在设备本地，联网只调你自己配置的 LLM/生图/语音 API。",
     "stargazers_count": 13,
-    "forks_count": 6,
+    "forks_count": 7,
     "language": "TypeScript",
     "pushed_at": "2026-10-06T14:34:55Z",
     "html_url": "https://github.com/shiaho777/float-android"
@@ -167,7 +167,7 @@
     "stargazers_count": 11,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-10-07T23:26:20Z",
+    "pushed_at": "2026-10-08T14:18:17Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
   },
   {
@@ -250,5 +250,14 @@
     "language": "Kotlin",
     "pushed_at": "2026-09-10T05:36:50Z",
     "html_url": "https://github.com/shiaho777/charter"
+  },
+  {
+    "name": "float-web",
+    "description": "Float web edition: the AI virtual phone running in a local browser.",
+    "stargazers_count": 0,
+    "forks_count": 0,
+    "language": "TypeScript",
+    "pushed_at": "2026-10-08T12:21:34Z",
+    "html_url": "https://github.com/shiaho777/float-web"
   }
 ]
