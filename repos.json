@@ -32,7 +32,7 @@
     "stargazers_count": 20,
     "forks_count": 0,
     "language": "C",
-    "pushed_at": "2026-10-02T01:24:41Z",
+    "pushed_at": "2026-10-09T04:04:33Z",
     "html_url": "https://github.com/shiaho777/LuaXIDE"
   },
   {
@@ -90,6 +90,15 @@
     "html_url": "https://github.com/shiaho777/An-Harness"
   },
   {
+    "name": "qsyy",
+    "description": "汽水音乐第三方 Web 播放器 · 全端可用 · 本地缓存直读 / 在线播放 / 逐字歌词 / 音效 / 下载",
+    "stargazers_count": 14,
+    "forks_count": 0,
+    "language": "JavaScript",
+    "pushed_at": "2026-10-09T02:27:17Z",
+    "html_url": "https://github.com/shiaho777/qsyy"
+  },
+  {
     "name": "MacBottle",
     "description": null,
     "stargazers_count": 14,
@@ -97,15 +106,6 @@
     "language": "Swift",
     "pushed_at": "2026-10-07T08:15:41Z",
     "html_url": "https://github.com/shiaho777/MacBottle"
-  },
-  {
-    "name": "qsyy",
-    "description": "汽水音乐第三方 Web 播放器 · 全端可用 · 本地缓存直读 / 在线播放 / 逐字歌词 / 音效 / 下载",
-    "stargazers_count": 14,
-    "forks_count": 0,
-    "language": "JavaScript",
-    "pushed_at": "2026-10-07T04:21:44Z",
-    "html_url": "https://github.com/shiaho777/qsyy"
   },
   {
     "name": "LogSleuth",
@@ -167,7 +167,7 @@
     "stargazers_count": 11,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-10-08T14:18:17Z",
+    "pushed_at": "2026-10-08T23:49:43Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
   },
   {
@@ -257,7 +257,7 @@
     "stargazers_count": 0,
     "forks_count": 0,
     "language": "TypeScript",
-    "pushed_at": "2026-10-08T12:21:34Z",
+    "pushed_at": "2026-10-09T02:04:25Z",
     "html_url": "https://github.com/shiaho777/float-web"
   }
 ]
