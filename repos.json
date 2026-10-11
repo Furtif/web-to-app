@@ -2,8 +2,8 @@
   {
     "name": "WebToApp",
     "description": "Turn any website into an installable app across iOS, Android, Windows, macOS and Linux, and generate a sharing link.",
-    "stargazers_count": 135,
-    "forks_count": 29,
+    "stargazers_count": 138,
+    "forks_count": 30,
     "language": "Python",
     "pushed_at": "2026-10-08T09:56:33Z",
     "html_url": "https://github.com/shiaho777/WebToApp"
@@ -27,6 +27,15 @@
     "html_url": "https://github.com/shiaho777/turn-mcp"
   },
   {
+    "name": "LogSleuth",
+    "description": "Root-free Android logcat viewer & embeddable zero-permission logging SDK",
+    "stargazers_count": 22,
+    "forks_count": 0,
+    "language": "Kotlin",
+    "pushed_at": "2026-10-10T14:10:21Z",
+    "html_url": "https://github.com/shiaho777/LogSleuth"
+  },
+  {
     "name": "LuaXIDE",
     "description": "Android Lua IDE with built-in interpreter, visual UI designer, debugger, and APK builder — all on-device, no root required.",
     "stargazers_count": 21,
@@ -34,15 +43,6 @@
     "language": "C",
     "pushed_at": "2026-10-09T04:04:33Z",
     "html_url": "https://github.com/shiaho777/LuaXIDE"
-  },
-  {
-    "name": "LogSleuth",
-    "description": "Root-free Android logcat viewer & embeddable zero-permission logging SDK",
-    "stargazers_count": 20,
-    "forks_count": 0,
-    "language": "Kotlin",
-    "pushed_at": "2026-10-10T14:10:21Z",
-    "html_url": "https://github.com/shiaho777/LogSleuth"
   },
   {
     "name": "andmx",
@@ -90,6 +90,15 @@
     "html_url": "https://github.com/shiaho777/wgsql"
   },
   {
+    "name": "qsyy",
+    "description": "汽水音乐第三方 Web 播放器 · 全端可用 · 本地缓存直读 / 在线播放 / 逐字歌词 / 音效 / 下载",
+    "stargazers_count": 16,
+    "forks_count": 0,
+    "language": "JavaScript",
+    "pushed_at": "2026-10-09T16:08:13Z",
+    "html_url": "https://github.com/shiaho777/qsyy"
+  },
+  {
     "name": "An-Harness",
     "description": "Android-first on-device AI agent harness — exploring everything possible on Android",
     "stargazers_count": 16,
@@ -97,15 +106,6 @@
     "language": "Kotlin",
     "pushed_at": "2026-09-08T10:15:19Z",
     "html_url": "https://github.com/shiaho777/An-Harness"
-  },
-  {
-    "name": "qsyy",
-    "description": "汽水音乐第三方 Web 播放器 · 全端可用 · 本地缓存直读 / 在线播放 / 逐字歌词 / 音效 / 下载",
-    "stargazers_count": 15,
-    "forks_count": 0,
-    "language": "JavaScript",
-    "pushed_at": "2026-10-09T16:08:13Z",
-    "html_url": "https://github.com/shiaho777/qsyy"
   },
   {
     "name": "MacBottle",
@@ -176,7 +176,7 @@
     "stargazers_count": 11,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-10-10T22:15:13Z",
+    "pushed_at": "2026-10-11T06:40:38Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
   },
   {
