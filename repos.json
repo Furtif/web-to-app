@@ -5,7 +5,7 @@
     "stargazers_count": 140,
     "forks_count": 31,
     "language": "Python",
-    "pushed_at": "2026-10-08T09:56:33Z",
+    "pushed_at": "2026-10-13T15:47:55Z",
     "html_url": "https://github.com/shiaho777/WebToApp"
   },
   {
@@ -22,17 +22,17 @@
     "description": "Achieve infinite conversation turns in a single API request via turn-mcp.             Self-hosted MCP server with browser console for human-in-the-loop AI agents.",
     "stargazers_count": 38,
     "forks_count": 9,
-    "language": "JavaScript",
-    "pushed_at": "2026-05-02T08:31:52Z",
+    "language": "TypeScript",
+    "pushed_at": "2026-10-13T13:29:04Z",
     "html_url": "https://github.com/shiaho777/turn-mcp"
   },
   {
     "name": "LogSleuth",
     "description": "Root-free Android logcat viewer & embeddable zero-permission logging SDK",
-    "stargazers_count": 22,
+    "stargazers_count": 23,
     "forks_count": 0,
     "language": "Kotlin",
-    "pushed_at": "2026-10-10T14:10:21Z",
+    "pushed_at": "2026-10-13T15:36:12Z",
     "html_url": "https://github.com/shiaho777/LogSleuth"
   },
   {
@@ -40,8 +40,8 @@
     "description": "Android Lua IDE with built-in interpreter, visual UI designer, debugger, and APK builder — all on-device, no root required.",
     "stargazers_count": 21,
     "forks_count": 0,
-    "language": "C",
-    "pushed_at": "2026-10-09T04:04:33Z",
+    "language": "Kotlin",
+    "pushed_at": "2026-10-13T14:57:39Z",
     "html_url": "https://github.com/shiaho777/LuaXIDE"
   },
   {
@@ -50,7 +50,7 @@
     "stargazers_count": 19,
     "forks_count": 0,
     "language": "Rust",
-    "pushed_at": "2026-10-13T02:46:02Z",
+    "pushed_at": "2026-10-13T15:32:44Z",
     "html_url": "https://github.com/shiaho777/revx"
   },
   {
@@ -86,7 +86,7 @@
     "stargazers_count": 17,
     "forks_count": 0,
     "language": "JavaScript",
-    "pushed_at": "2026-10-13T02:24:06Z",
+    "pushed_at": "2026-10-13T15:35:45Z",
     "html_url": "https://github.com/shiaho777/qsyy"
   },
   {
@@ -167,7 +167,7 @@
     "stargazers_count": 12,
     "forks_count": 0,
     "language": "C",
-    "pushed_at": "2026-10-07T08:11:29Z",
+    "pushed_at": "2026-10-13T15:40:38Z",
     "html_url": "https://github.com/shiaho777/stratum"
   },
   {
@@ -176,7 +176,7 @@
     "stargazers_count": 11,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-10-12T16:30:20Z",
+    "pushed_at": "2026-10-13T14:52:51Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
   },
   {
