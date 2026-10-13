@@ -45,6 +45,15 @@
     "html_url": "https://github.com/shiaho777/LuaXIDE"
   },
   {
+    "name": "revx",
+    "description": "Rust reverse-engineering toolkit with CLI and local MCP server.",
+    "stargazers_count": 19,
+    "forks_count": 0,
+    "language": "Rust",
+    "pushed_at": "2026-10-13T02:46:02Z",
+    "html_url": "https://github.com/shiaho777/revx"
+  },
+  {
     "name": "andmx",
     "description": "Android-native AI coding agent (AndMX)",
     "stargazers_count": 19,
@@ -63,15 +72,6 @@
     "html_url": "https://github.com/shiaho777/NexFiles"
   },
   {
-    "name": "revx",
-    "description": "Rust reverse-engineering toolkit with CLI and local MCP server.",
-    "stargazers_count": 18,
-    "forks_count": 0,
-    "language": "Rust",
-    "pushed_at": "2026-09-17T08:50:31Z",
-    "html_url": "https://github.com/shiaho777/revx"
-  },
-  {
     "name": "zv-codec",
     "description": "Tiny video/audio codec optimized for screen recordings. 24% smaller than x265 lossless RGB at the same speed, ~1100 lines of C, no NN, no external deps.",
     "stargazers_count": 18,
@@ -81,6 +81,15 @@
     "html_url": "https://github.com/shiaho777/zv-codec"
   },
   {
+    "name": "qsyy",
+    "description": "汽水音乐第三方 Web 播放器 · 全端可用 · 本地缓存直读 / 在线播放 / 逐字歌词 / 音效 / 下载",
+    "stargazers_count": 17,
+    "forks_count": 0,
+    "language": "JavaScript",
+    "pushed_at": "2026-10-13T02:24:06Z",
+    "html_url": "https://github.com/shiaho777/qsyy"
+  },
+  {
     "name": "wgsql",
     "description": "GPU-accelerated columnar OLAP via WebGPU. One WGSL kernel, four backends.",
     "stargazers_count": 17,
@@ -88,15 +97,6 @@
     "language": "Rust",
     "pushed_at": "2026-09-17T06:30:59Z",
     "html_url": "https://github.com/shiaho777/wgsql"
-  },
-  {
-    "name": "qsyy",
-    "description": "汽水音乐第三方 Web 播放器 · 全端可用 · 本地缓存直读 / 在线播放 / 逐字歌词 / 音效 / 下载",
-    "stargazers_count": 16,
-    "forks_count": 0,
-    "language": "JavaScript",
-    "pushed_at": "2026-10-09T16:08:13Z",
-    "html_url": "https://github.com/shiaho777/qsyy"
   },
   {
     "name": "An-Harness",
