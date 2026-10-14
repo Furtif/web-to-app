@@ -108,6 +108,15 @@
     "html_url": "https://github.com/shiaho777/An-Harness"
   },
   {
+    "name": "float-android",
+    "description": "一部装在 Android 里的 AI 虚拟手机：拟真桌面、聊天、朋友圈、查手机、地图定位、语音/视频通话、日记日历。AI 角色有作息、日程、位置和长期记忆，会主动发消息、发帖互动。数据全在设备本地，联网只调你自己配置的 LLM/生图/语音 API。",
+    "stargazers_count": 14,
+    "forks_count": 8,
+    "language": "TypeScript",
+    "pushed_at": "2026-10-10T07:06:10Z",
+    "html_url": "https://github.com/shiaho777/float-android"
+  },
+  {
     "name": "MacBottle",
     "description": null,
     "stargazers_count": 14,
@@ -133,15 +142,6 @@
     "language": null,
     "pushed_at": "2026-05-28T08:50:31Z",
     "html_url": "https://github.com/shiaho777/anthropic-ui-skill"
-  },
-  {
-    "name": "float-android",
-    "description": "一部装在 Android 里的 AI 虚拟手机：拟真桌面、聊天、朋友圈、查手机、地图定位、语音/视频通话、日记日历。AI 角色有作息、日程、位置和长期记忆，会主动发消息、发帖互动。数据全在设备本地，联网只调你自己配置的 LLM/生图/语音 API。",
-    "stargazers_count": 13,
-    "forks_count": 7,
-    "language": "TypeScript",
-    "pushed_at": "2026-10-10T07:06:10Z",
-    "html_url": "https://github.com/shiaho777/float-android"
   },
   {
     "name": "memx",
@@ -176,7 +176,7 @@
     "stargazers_count": 11,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-10-13T14:52:51Z",
+    "pushed_at": "2026-10-13T23:33:49Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
   },
   {
@@ -250,6 +250,15 @@
     "language": "Kotlin",
     "pushed_at": "2026-09-10T05:36:50Z",
     "html_url": "https://github.com/shiaho777/charter"
+  },
+  {
+    "name": "nixiang",
+    "description": "Rusted Warfare v1.15 逆向分析 + 改包 + 联机工具（phantom/relay）",
+    "stargazers_count": 0,
+    "forks_count": 0,
+    "language": "Smali",
+    "pushed_at": "2026-10-14T04:16:44Z",
+    "html_url": "https://github.com/shiaho777/nixiang"
   },
   {
     "name": "float-web",
