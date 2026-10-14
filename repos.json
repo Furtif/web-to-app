@@ -29,7 +29,7 @@
   {
     "name": "LogSleuth",
     "description": "Root-free Android logcat viewer & embeddable zero-permission logging SDK",
-    "stargazers_count": 23,
+    "stargazers_count": 24,
     "forks_count": 0,
     "language": "Kotlin",
     "pushed_at": "2026-10-13T15:36:12Z",
@@ -63,6 +63,15 @@
     "html_url": "https://github.com/shiaho777/andmx"
   },
   {
+    "name": "qsyy",
+    "description": "汽水音乐第三方 Web 播放器 · 全端可用 · 本地缓存直读 / 在线播放 / 逐字歌词 / 音效 / 下载",
+    "stargazers_count": 18,
+    "forks_count": 0,
+    "language": "JavaScript",
+    "pushed_at": "2026-10-13T15:35:45Z",
+    "html_url": "https://github.com/shiaho777/qsyy"
+  },
+  {
     "name": "NexFiles",
     "description": "An open source Material Design file manager, for Android 5.0+.",
     "stargazers_count": 18,
@@ -79,15 +88,6 @@
     "language": "Python",
     "pushed_at": "2026-05-22T17:43:02Z",
     "html_url": "https://github.com/shiaho777/zv-codec"
-  },
-  {
-    "name": "qsyy",
-    "description": "汽水音乐第三方 Web 播放器 · 全端可用 · 本地缓存直读 / 在线播放 / 逐字歌词 / 音效 / 下载",
-    "stargazers_count": 17,
-    "forks_count": 0,
-    "language": "JavaScript",
-    "pushed_at": "2026-10-13T15:35:45Z",
-    "html_url": "https://github.com/shiaho777/qsyy"
   },
   {
     "name": "wgsql",
@@ -176,7 +176,7 @@
     "stargazers_count": 11,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-10-13T23:33:49Z",
+    "pushed_at": "2026-10-14T12:51:26Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
   },
   {
