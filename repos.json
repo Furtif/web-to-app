@@ -2,7 +2,7 @@
   {
     "name": "WebToApp",
     "description": "Turn any website into an installable app across iOS, Android, Windows, macOS and Linux, and generate a sharing link.",
-    "stargazers_count": 140,
+    "stargazers_count": 142,
     "forks_count": 31,
     "language": "Python",
     "pushed_at": "2026-10-13T15:47:55Z",
@@ -29,7 +29,7 @@
   {
     "name": "LogSleuth",
     "description": "Root-free Android logcat viewer & embeddable zero-permission logging SDK",
-    "stargazers_count": 24,
+    "stargazers_count": 25,
     "forks_count": 0,
     "language": "Kotlin",
     "pushed_at": "2026-10-13T15:36:12Z",
@@ -63,6 +63,15 @@
     "html_url": "https://github.com/shiaho777/andmx"
   },
   {
+    "name": "NexFiles",
+    "description": "An open source Material Design file manager, for Android 5.0+.",
+    "stargazers_count": 18,
+    "forks_count": 0,
+    "language": "Kotlin",
+    "pushed_at": "2026-10-15T08:24:28Z",
+    "html_url": "https://github.com/shiaho777/NexFiles"
+  },
+  {
     "name": "qsyy",
     "description": "汽水音乐第三方 Web 播放器 · 全端可用 · 本地缓存直读 / 在线播放 / 逐字歌词 / 音效 / 下载",
     "stargazers_count": 18,
@@ -70,15 +79,6 @@
     "language": "JavaScript",
     "pushed_at": "2026-10-13T15:35:45Z",
     "html_url": "https://github.com/shiaho777/qsyy"
-  },
-  {
-    "name": "NexFiles",
-    "description": "An open source Material Design file manager, for Android 5.0+.",
-    "stargazers_count": 18,
-    "forks_count": 0,
-    "language": "Kotlin",
-    "pushed_at": "2026-10-08T08:26:18Z",
-    "html_url": "https://github.com/shiaho777/NexFiles"
   },
   {
     "name": "zv-codec",
@@ -176,7 +176,7 @@
     "stargazers_count": 11,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-10-14T22:24:25Z",
+    "pushed_at": "2026-10-15T12:40:09Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
   },
   {
