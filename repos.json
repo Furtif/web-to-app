@@ -41,8 +41,17 @@
     "stargazers_count": 21,
     "forks_count": 0,
     "language": "Kotlin",
-    "pushed_at": "2026-10-13T14:57:39Z",
+    "pushed_at": "2026-10-16T01:24:54Z",
     "html_url": "https://github.com/shiaho777/LuaXIDE"
+  },
+  {
+    "name": "qsyy",
+    "description": "汽水音乐第三方 Web 播放器 · 全端可用 · 本地缓存直读 / 在线播放 / 逐字歌词 / 音效 / 下载",
+    "stargazers_count": 19,
+    "forks_count": 0,
+    "language": "JavaScript",
+    "pushed_at": "2026-10-13T15:35:45Z",
+    "html_url": "https://github.com/shiaho777/qsyy"
   },
   {
     "name": "revx",
@@ -70,15 +79,6 @@
     "language": "Kotlin",
     "pushed_at": "2026-10-15T08:24:28Z",
     "html_url": "https://github.com/shiaho777/NexFiles"
-  },
-  {
-    "name": "qsyy",
-    "description": "汽水音乐第三方 Web 播放器 · 全端可用 · 本地缓存直读 / 在线播放 / 逐字歌词 / 音效 / 下载",
-    "stargazers_count": 18,
-    "forks_count": 0,
-    "language": "JavaScript",
-    "pushed_at": "2026-10-13T15:35:45Z",
-    "html_url": "https://github.com/shiaho777/qsyy"
   },
   {
     "name": "zv-codec",
@@ -176,7 +176,7 @@
     "stargazers_count": 11,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-10-15T12:40:09Z",
+    "pushed_at": "2026-10-15T22:02:30Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
   },
   {
