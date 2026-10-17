@@ -2,10 +2,10 @@
   {
     "name": "WebToApp",
     "description": "Turn any website into an installable app across iOS, Android, Windows, macOS and Linux, and generate a sharing link.",
-    "stargazers_count": 144,
-    "forks_count": 31,
+    "stargazers_count": 145,
+    "forks_count": 32,
     "language": "Python",
-    "pushed_at": "2026-10-13T15:47:55Z",
+    "pushed_at": "2026-10-17T05:43:34Z",
     "html_url": "https://github.com/shiaho777/WebToApp"
   },
   {
@@ -29,10 +29,10 @@
   {
     "name": "LogSleuth",
     "description": "Root-free Android logcat viewer & embeddable zero-permission logging SDK",
-    "stargazers_count": 25,
+    "stargazers_count": 26,
     "forks_count": 0,
     "language": "Kotlin",
-    "pushed_at": "2026-10-13T15:36:12Z",
+    "pushed_at": "2026-10-17T08:48:00Z",
     "html_url": "https://github.com/shiaho777/LogSleuth"
   },
   {
@@ -50,7 +50,7 @@
     "stargazers_count": 20,
     "forks_count": 0,
     "language": "JavaScript",
-    "pushed_at": "2026-10-16T15:49:47Z",
+    "pushed_at": "2026-10-17T13:23:12Z",
     "html_url": "https://github.com/shiaho777/qsyy"
   },
   {
@@ -59,7 +59,7 @@
     "stargazers_count": 19,
     "forks_count": 0,
     "language": "Rust",
-    "pushed_at": "2026-10-13T15:32:44Z",
+    "pushed_at": "2026-10-17T09:27:24Z",
     "html_url": "https://github.com/shiaho777/revx"
   },
   {
@@ -72,6 +72,15 @@
     "html_url": "https://github.com/shiaho777/andmx"
   },
   {
+    "name": "zv-codec",
+    "description": "Tiny video/audio codec optimized for screen recordings. 24% smaller than x265 lossless RGB at the same speed, ~1100 lines of C, no NN, no external deps.",
+    "stargazers_count": 18,
+    "forks_count": 0,
+    "language": "C",
+    "pushed_at": "2026-10-17T09:25:24Z",
+    "html_url": "https://github.com/shiaho777/zv-codec"
+  },
+  {
     "name": "NexFiles",
     "description": "An open source Material Design file manager, for Android 5.0+.",
     "stargazers_count": 18,
@@ -79,15 +88,6 @@
     "language": "Kotlin",
     "pushed_at": "2026-10-15T08:24:28Z",
     "html_url": "https://github.com/shiaho777/NexFiles"
-  },
-  {
-    "name": "zv-codec",
-    "description": "Tiny video/audio codec optimized for screen recordings. 24% smaller than x265 lossless RGB at the same speed, ~1100 lines of C, no NN, no external deps.",
-    "stargazers_count": 18,
-    "forks_count": 0,
-    "language": "Python",
-    "pushed_at": "2026-05-22T17:43:02Z",
-    "html_url": "https://github.com/shiaho777/zv-codec"
   },
   {
     "name": "wgsql",
@@ -167,7 +167,7 @@
     "stargazers_count": 12,
     "forks_count": 0,
     "language": "C",
-    "pushed_at": "2026-10-13T15:40:38Z",
+    "pushed_at": "2026-10-17T06:59:05Z",
     "html_url": "https://github.com/shiaho777/stratum"
   },
   {
@@ -176,7 +176,7 @@
     "stargazers_count": 11,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-10-16T22:03:36Z",
+    "pushed_at": "2026-10-17T11:23:39Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
   },
   {
@@ -250,6 +250,15 @@
     "language": "Kotlin",
     "pushed_at": "2026-09-10T05:36:50Z",
     "html_url": "https://github.com/shiaho777/charter"
+  },
+  {
+    "name": "BiliDesk",
+    "description": "哔哩哔哩第三方客户端 · Compose Multiplatform · Android / Windows / macOS / Linux",
+    "stargazers_count": 1,
+    "forks_count": 0,
+    "language": "Kotlin",
+    "pushed_at": "2026-10-17T09:08:28Z",
+    "html_url": "https://github.com/shiaho777/BiliDesk"
   },
   {
     "name": "nixiang",
