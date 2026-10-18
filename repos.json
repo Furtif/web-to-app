@@ -29,7 +29,7 @@
   {
     "name": "LogSleuth",
     "description": "Root-free Android logcat viewer & embeddable zero-permission logging SDK",
-    "stargazers_count": 26,
+    "stargazers_count": 27,
     "forks_count": 1,
     "language": "Kotlin",
     "pushed_at": "2026-10-17T08:48:00Z",
@@ -176,7 +176,7 @@
     "stargazers_count": 11,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-10-17T21:17:57Z",
+    "pushed_at": "2026-10-18T12:11:13Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
   },
   {
