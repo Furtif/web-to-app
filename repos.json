@@ -2,7 +2,7 @@
   {
     "name": "WebToApp",
     "description": "Turn any website into an installable app across iOS, Android, Windows, macOS and Linux, and generate a sharing link.",
-    "stargazers_count": 150,
+    "stargazers_count": 152,
     "forks_count": 33,
     "language": "Python",
     "pushed_at": "2026-10-17T05:43:34Z",
@@ -176,7 +176,7 @@
     "stargazers_count": 11,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-10-19T14:24:44Z",
+    "pushed_at": "2026-10-19T22:50:57Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
   },
   {
