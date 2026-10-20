@@ -2,8 +2,8 @@
   {
     "name": "WebToApp",
     "description": "Turn any website into an installable app across iOS, Android, Windows, macOS and Linux, and generate a sharing link.",
-    "stargazers_count": 152,
-    "forks_count": 33,
+    "stargazers_count": 155,
+    "forks_count": 34,
     "language": "Python",
     "pushed_at": "2026-10-17T05:43:34Z",
     "html_url": "https://github.com/shiaho777/WebToApp"
@@ -32,7 +32,7 @@
     "stargazers_count": 27,
     "forks_count": 2,
     "language": "Kotlin",
-    "pushed_at": "2026-10-17T08:48:00Z",
+    "pushed_at": "2026-10-20T15:45:28Z",
     "html_url": "https://github.com/shiaho777/LogSleuth"
   },
   {
@@ -68,7 +68,7 @@
     "stargazers_count": 19,
     "forks_count": 0,
     "language": "Rust",
-    "pushed_at": "2026-10-17T09:27:24Z",
+    "pushed_at": "2026-10-20T16:10:14Z",
     "html_url": "https://github.com/shiaho777/revx"
   },
   {
@@ -111,7 +111,7 @@
     "name": "float-android",
     "description": "一部装在 Android 里的 AI 虚拟手机：拟真桌面、聊天、朋友圈、查手机、地图定位、语音/视频通话、日记日历。AI 角色有作息、日程、位置和长期记忆，会主动发消息、发帖互动。数据全在设备本地，联网只调你自己配置的 LLM/生图/语音 API。",
     "stargazers_count": 15,
-    "forks_count": 9,
+    "forks_count": 8,
     "language": "TypeScript",
     "pushed_at": "2026-10-10T07:06:10Z",
     "html_url": "https://github.com/shiaho777/float-android"
@@ -167,7 +167,7 @@
     "stargazers_count": 12,
     "forks_count": 0,
     "language": "C",
-    "pushed_at": "2026-10-17T06:59:05Z",
+    "pushed_at": "2026-10-20T06:25:46Z",
     "html_url": "https://github.com/shiaho777/stratum"
   },
   {
@@ -176,7 +176,7 @@
     "stargazers_count": 11,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-10-19T22:50:57Z",
+    "pushed_at": "2026-10-20T12:43:38Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
   },
   {
