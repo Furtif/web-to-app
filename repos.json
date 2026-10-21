@@ -2,7 +2,7 @@
   {
     "name": "WebToApp",
     "description": "Turn any website into an installable app across iOS, Android, Windows, macOS and Linux, and generate a sharing link.",
-    "stargazers_count": 155,
+    "stargazers_count": 157,
     "forks_count": 34,
     "language": "Python",
     "pushed_at": "2026-10-17T05:43:34Z",
@@ -29,7 +29,7 @@
   {
     "name": "LogSleuth",
     "description": "Root-free Android logcat viewer & embeddable zero-permission logging SDK",
-    "stargazers_count": 27,
+    "stargazers_count": 28,
     "forks_count": 2,
     "language": "Kotlin",
     "pushed_at": "2026-10-20T15:45:28Z",
@@ -50,7 +50,7 @@
     "stargazers_count": 20,
     "forks_count": 0,
     "language": "JavaScript",
-    "pushed_at": "2026-10-17T13:23:12Z",
+    "pushed_at": "2026-10-21T03:42:10Z",
     "html_url": "https://github.com/shiaho777/qsyy"
   },
   {
@@ -68,7 +68,7 @@
     "stargazers_count": 19,
     "forks_count": 0,
     "language": "Rust",
-    "pushed_at": "2026-10-20T16:10:14Z",
+    "pushed_at": "2026-10-21T02:44:22Z",
     "html_url": "https://github.com/shiaho777/revx"
   },
   {
@@ -176,7 +176,7 @@
     "stargazers_count": 11,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-10-20T12:43:38Z",
+    "pushed_at": "2026-10-20T22:19:51Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
   },
   {
