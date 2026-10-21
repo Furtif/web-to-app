@@ -2,8 +2,8 @@
   {
     "name": "WebToApp",
     "description": "Turn any website into an installable app across iOS, Android, Windows, macOS and Linux, and generate a sharing link.",
-    "stargazers_count": 157,
-    "forks_count": 34,
+    "stargazers_count": 159,
+    "forks_count": 35,
     "language": "Python",
     "pushed_at": "2026-10-17T05:43:34Z",
     "html_url": "https://github.com/shiaho777/WebToApp"
@@ -111,7 +111,7 @@
     "name": "float-android",
     "description": "一部装在 Android 里的 AI 虚拟手机：拟真桌面、聊天、朋友圈、查手机、地图定位、语音/视频通话、日记日历。AI 角色有作息、日程、位置和长期记忆，会主动发消息、发帖互动。数据全在设备本地，联网只调你自己配置的 LLM/生图/语音 API。",
     "stargazers_count": 15,
-    "forks_count": 8,
+    "forks_count": 9,
     "language": "TypeScript",
     "pushed_at": "2026-10-10T07:06:10Z",
     "html_url": "https://github.com/shiaho777/float-android"
@@ -176,7 +176,7 @@
     "stargazers_count": 11,
     "forks_count": 0,
     "language": "Python",
-    "pushed_at": "2026-10-20T22:19:51Z",
+    "pushed_at": "2026-10-21T05:27:47Z",
     "html_url": "https://github.com/shiaho777/pyj-j"
   },
   {
@@ -254,7 +254,7 @@
   {
     "name": "BiliDesk",
     "description": "哔哩哔哩第三方客户端 · Compose Multiplatform · Android / Windows / macOS / Linux",
-    "stargazers_count": 1,
+    "stargazers_count": 2,
     "forks_count": 0,
     "language": "Kotlin",
     "pushed_at": "2026-10-17T09:08:28Z",
